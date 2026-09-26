@@ -1,34 +1,45 @@
 <!doctype html>
 <html lang="en">
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy policy — Naber Studio</title>
-<meta name="description" content="How Naber Studio handles your information.">
-<meta name="theme-color" content="#f4f2ed">
+<meta name="description" content="How Naber Studio collects and uses information.">
+<meta name="theme-color" content="#131313">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../brand/brand.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="glow" aria-hidden="true"></div>
+
 <header class="nav">
-  <div class="wrap">
-    <a class="brand" href="../">Naber Studio<i aria-hidden="true"></i></a>
-    <nav aria-label="Primary">
-      <a class="hide-sm" href="../#try">Try it</a>
-      <a class="hide-sm" href="../#how">How it works</a>
-      <a class="hide-sm" href="../faris/">About</a>
-      <a href="../#pricing">Pricing</a>
-      <a class="btn-sm" href="../contact/">Contact</a>
-    </nav>
+  <a href="../" class="mark" aria-label="Naber Studio home">NS<small>Naber Studio</small></a>
+  <div class="nav-r">
+    <a class="nav-cta" href="../calculator/">The math</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span>ME</span><span>NU</span><i></i></button>
   </div>
 </header>
-<main id="main" class="doc"><div class="wrap">
-<span class="kicker mono">Legal</span>
-<h1>Privacy policy</h1>
+
+<nav id="menu" class="menu" aria-hidden="true" aria-label="Menu">
+  <a href="../#try"><span>01</span>Build yours</a>
+  <a href="../calculator/"><span>02</span>The math</a>
+  <a href="../#real"><span>03</span>What you get</a>
+  <a href="../#how"><span>04</span>Process</a>
+  <a href="../#pricing"><span>05</span>Pricing</a>
+  <a href="../faris/"><span>06</span>Founder</a>
+  <a href="../contact/"><span>07</span>Contact</a>
+  <p class="menu-foot"><a href="mailto:hello@naberstudio.com">hello@naberstudio.com</a> · Austin, TX</p>
+</nav>
+
+<main id="main" class="doc">
+  <h1 class="mega left"><span class="l1">Privacy</span><span class="l2 c-t">Policy</span></h1>
+  <article class="glass doc-body reveal">
 <p class="meta">Last updated September 26, 2026</p>
 <p>Naber Studio is operated by Faris Naber (“we”, “us”). This policy explains what information we collect through naberstudio.com and our services, and how we use it.</p>
 <h2>What we collect</h2>
@@ -52,13 +63,12 @@
 <p>You can ask to see, correct or delete your information at any time by emailing <a href="mailto:hello@naberstudio.com">hello@naberstudio.com</a>.</p>
 <h2>Changes</h2>
 <p>If we change this policy, we’ll update the date at the top of this page.</p>
-</div></main>
+  </article>
+</main>
 <footer class="foot">
-  <div class="wrap">
-    <span>© <span data-year>2026</span> Naber Studio · operated by Faris Naber</span>
-    <nav aria-label="Legal"><a href="../contact/">Contact</a><a href="../terms/">Terms</a><a href="../terms/#refunds">Refunds</a><a href="../privacy/">Privacy</a></nav>
-  </div>
+  <span>© <span data-year>2026</span> Naber Studio · operated by Faris Naber</span>
+  <nav aria-label="Legal"><a href="../contact/">Contact</a><a href="../terms/">Terms</a><a href="../terms/#refunds">Refunds</a><a href="../privacy/">Privacy</a></nav>
 </footer>
-<script src="../main.js" defer></script>
+<script src="../brand/brand.js" defer></script>
 </body>
 </html>
