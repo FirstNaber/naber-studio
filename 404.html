@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>
+/* Private client proposals live at /p/<code>/ as single-page apps: hand unknown paths there back to that app. */
+(function(){var m=location.pathname.match(/^\/p\/[a-z0-9-]+\//);if(!m)return;
+fetch(m[0]+'404.html',{cache:'no-store'}).then(function(r){return r.ok?r.text():null}).then(function(t){if(!t)return;document.open();document.write(t);document.close();});})();
+</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found — Naber Studio</title>
