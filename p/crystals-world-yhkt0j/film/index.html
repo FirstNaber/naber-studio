@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style id="ns-gate-style">html.ns-locked body>*:not(#ns-gate){display:none!important}#ns-gate{position:fixed;inset:0;z-index:2147483647;display:grid;place-items:center;background:#0e0d10;color:#f4f2ed;font:16px/1.5 -apple-system,system-ui,sans-serif}#ns-gate form{width:min(360px,86vw);text-align:center}#ns-gate .mark{display:inline-block;margin-bottom:18px;font-weight:600;letter-spacing:-.02em}#ns-gate .mark i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#2f47ff;margin-left:3px}#ns-gate h1{font-size:24px;font-weight:600;letter-spacing:-.03em;margin:0 0 6px}#ns-gate p{color:#a9a6b3;margin:0 0 20px;font-size:14px}#ns-gate input{width:100%;height:52px;border-radius:12px;border:1px solid #3a3842;background:#18171c;color:#fff;padding:0 16px;font-size:16px;box-sizing:border-box}#ns-gate button{margin-top:10px;width:100%;height:52px;border:0;border-radius:12px;background:#2f47ff;color:#fff;font-weight:600;font-size:16px;cursor:pointer}#ns-gate .err{color:#ff8a8a;min-height:20px;margin-top:10px;font-size:14px}</style>
+<script>(function(){var H='dffbf0eac919699ed6c7b4e4ab1278aee58704b68d0c958bb1da40d3dc087865',K='ns-access-crystals-world';try{if(localStorage.getItem(K)===H)return}catch(e){}document.documentElement.classList.add('ns-locked');function build(){if(document.getElementById('ns-gate'))return;var d=document.createElement('div');d.id='ns-gate';d.innerHTML='<form><span class="mark">Naber Studio<i></i></span><h1>Private proposal</h1><p>Prepared for Crystals World. Enter the passcode Faris gave you.</p><input type="password" autocomplete="off" aria-label="Passcode" autofocus><button type="submit">Open</button><div class="err" role="alert"></div></form>';document.body.appendChild(d);var f=d.querySelector('form'),i=d.querySelector('input'),e=d.querySelector('.err');f.addEventListener('submit',function(ev){ev.preventDefault();var v=(i.value||'').trim().toLowerCase().replace(/\s+/g,'');crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(b){var h=Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('');if(h===H){try{localStorage.setItem(K,H)}catch(x){}document.documentElement.classList.remove('ns-locked');d.remove();}else{e.textContent='That passcode isn’t right.';i.select();}});});}if(document.body)build();else document.addEventListener('DOMContentLoaded',build);})();</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crystals World — Crystals &amp; Minerals on Guadalupe St, Austin</title>
+<meta name="description" content="Amethyst, clear quartz, citrine, minerals and jewelry at Crystals World, 3202 Guadalupe St Ste C, Austin, TX. Retail and wholesale. 5.0 stars from 203 Google reviews.">
+<!-- Concept build for the client: keep out of search until launch. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0a0708">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Store","name":"Crystals World","description":"Crystal and mineral shop in Austin, Texas. Retail and wholesale.","telephone":"+1-737-320-8079","address":{"@type":"PostalAddress","streetAddress":"3202 Guadalupe St Ste C","addressLocality":"Austin","addressRegion":"TX","postalCode":"78705","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"203"},"sameAs":["https://www.instagram.com/crystals_world01/","https://www.tiktok.com/@crystals_world01","https://www.facebook.com/share/19NQg3GGVh/"]}
+</script>
+<style>
+/* ─── world: "The Specimen Room" ──────────────────────────────────────────────
+   The film plays in the dark; the shop below is a lit room: warm paper, ink, museum labels.
+   ink #16120f · paper #efe8dc · bone #e3d9c8 · amethyst #5a2d8c · citrine #b8741a · night #0a0708
+   Instrument Serif (display) · Hanken Grotesk (body) · JetBrains Mono (labels)                    */
+:root{
+  --night:#0a0708; --ink:#16120f; --paper:#efe8dc; --bone:#e3d9c8; --rule:rgba(22,18,15,.16);
+  --muted:#5e5549; --amethyst:#5a2d8c; --citrine:#b8741a; --glass:#f4f1ec;
+  --serif:"Instrument Serif", Georgia, serif; --sans:"Hanken Grotesk", system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace;
+  --ease:cubic-bezier(.19,1,.22,1); --pad:clamp(20px,4.5vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--night)}
+body{background:var(--night);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+:focus-visible{outline:2px solid var(--citrine);outline-offset:4px}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--paper);padding:10px 16px}.skip:focus{left:8px}
+
+/* loader: a single thin rule filling */
+#loader{position:fixed;inset:0;z-index:90;background:var(--night);display:flex;align-items:flex-end;padding:var(--pad);transition:opacity 1s var(--ease),visibility 1s}
+#loader.done{opacity:0;visibility:hidden}
+#loader .row{width:100%;display:flex;justify-content:space-between;color:rgba(244,241,236,.6)}
+#loader .bar{position:absolute;left:0;right:0;bottom:0;height:2px}
+#loader .bar i{display:block;height:100%;width:0;background:var(--glass);transition:width .25s linear}
+
+/* chrome: a thin frame around the film, like a specimen case */
+.case{position:fixed;inset:14px;z-index:30;pointer-events:none;border:1px solid rgba(244,241,236,.22);transition:opacity .8s var(--ease)}
+.case.off{opacity:0}
+header.top{position:fixed;left:14px;right:14px;top:14px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(16px,3vw,34px);color:var(--glass);transition:background .5s,color .5s,border-color .5s;border-bottom:1px solid transparent}
+header.top.lit{background:rgba(239,232,220,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink);border-color:var(--rule)}
+.brand{display:flex;align-items:center;gap:10px;text-shadow:0 1px 18px rgba(0,0,0,.45)}
+header.top.lit .brand{text-shadow:none}
+.brand b{font-family:"Ranchers",Impact,sans-serif;font-weight:400;font-size:24px;letter-spacing:.015em;line-height:1;text-transform:uppercase}
+.brand span{opacity:.7}
+nav.main{display:flex;gap:28px;align-items:center}
+nav.main a{font-size:13px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)}
+header.top.lit nav.main a{text-shadow:none}
+nav.main a:hover{text-decoration:underline;text-underline-offset:6px}
+nav.main a.pill{border:1px solid currentColor;border-radius:99px;padding:8px 16px;text-decoration:none}
+nav.main a.pill:hover{background:var(--glass);color:var(--ink);border-color:var(--glass)}
+header.top.lit nav.main a.pill:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+@media(max-width:820px){nav.main a:not(.pill){display:none}.brand span{display:none}}
+
+/* the film */
+#film{position:relative;height:420vh}
+#stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--night)}
+#stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#stage .shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(8,5,4,.72) 0%,rgba(8,5,4,0) 42%),linear-gradient(to bottom,rgba(8,5,4,.5) 0%,rgba(8,5,4,0) 22%)}
+
+/* opening wordmark, centred and huge */
+.open{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--glass);pointer-events:none;will-change:opacity,transform}
+/* the wordmark, set like the shop's sign: heavy condensed letters in violet, glowing warm from behind */
+.open h1{font-family:"Ranchers",Impact,sans-serif;font-weight:400;font-size:clamp(3.8rem,12.5vw,12.5rem);line-height:.9;letter-spacing:.01em;text-transform:uppercase;color:#8d55ff;text-shadow:.04em .05em 0 #1a0b3a,0 0 .5em rgba(236,255,150,.28),0 0 1.4em rgba(236,255,150,.16)}
+.open h1 em{display:block;font-style:normal}
+.open p{margin-top:26px;color:rgba(244,241,236,.8)}
+
+/* the specimen label: bottom-left, rewrites itself per chapter */
+.label{position:absolute;z-index:4;left:clamp(30px,5vw,70px);bottom:clamp(30px,6vh,64px);width:min(430px,calc(100vw - 60px));color:var(--glass);pointer-events:none}
+.label .card{border-top:1px solid rgba(244,241,236,.55);padding-top:16px;display:grid;grid-template-columns:auto 1fr;gap:4px 22px;align-items:baseline}
+.label .no{font-family:var(--serif);font-size:62px;line-height:.8;grid-row:span 3}
+.label .name{font-family:var(--serif);font-size:clamp(30px,3vw,42px);line-height:1}
+.label .spec{color:rgba(244,241,236,.72)}
+.label .line{grid-column:2;font-size:15px;line-height:1.5;color:rgba(244,241,236,.88);max-width:30ch}
+.label .swap{transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.label.flip .swap{opacity:0;transform:translateY(8px)}
+
+/* index strip: I · II · III with a live rule */
+.index{position:absolute;z-index:4;right:clamp(30px,5vw,70px);bottom:clamp(30px,6vh,64px);display:flex;gap:26px;color:rgba(244,241,236,.5)}
+.index span{position:relative;padding-bottom:10px;transition:color .4s}
+.index span.on{color:var(--glass)}
+.index span i{position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--glass)}
+@media(max-width:700px){.index{display:none}.label .no{font-size:48px}}
+
+/* finale over the last frames */
+.finale{position:absolute;z-index:5;right:clamp(30px,5vw,70px);top:50%;transform:translateY(-50%);text-align:right;color:var(--glass);opacity:0;pointer-events:none;max-width:560px}
+.finale.live{pointer-events:auto}
+.finale h2{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,6.6vw,6.4rem);line-height:.92;letter-spacing:-.02em;text-shadow:0 2px 40px rgba(0,0,0,.4)}
+.finale h2 em{color:#cdb0ff}
+.finale .ctas{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:30px}
+@media(max-width:700px){.finale{left:24px;right:24px;text-align:left;top:36%}.finale .ctas{justify-content:flex-start}}
+
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:50px;padding:0 26px;border-radius:99px;font-size:14px;font-weight:600;transition:transform .4s var(--ease),background .35s,color .35s,box-shadow .5s var(--ease)}
+.btn .arr{transition:transform .4s var(--ease)}.btn:hover .arr{transform:translateX(4px)}
+.btn-glass{background:var(--glass);color:var(--ink);box-shadow:0 14px 44px -14px rgba(243,192,122,.7)}
+.btn-glass:hover{transform:translateY(-2px);box-shadow:0 20px 54px -14px rgba(243,192,122,.95)}
+.btn-line{border:1px solid rgba(244,241,236,.6);color:var(--glass)}
+.btn-line:hover{background:var(--glass);color:var(--ink)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:var(--amethyst);transform:translateY(-2px)}
+.btn-ink-line{border:1px solid var(--ink)}
+.btn-ink-line:hover{background:var(--ink);color:var(--paper)}
+
+/* ─── the lit room ─── */
+main.room{position:relative;z-index:2;background:var(--paper)}
+.dawn{height:46vh;background:linear-gradient(to bottom,var(--night) 0%,#211530 30%,#8e82a3 64%,var(--paper) 100%)}
+.sec{position:relative;min-height:min(92vh,900px);padding:clamp(80px,11vw,150px) var(--pad);display:flex;align-items:center}
+.wrap{width:100%;max-width:1340px;margin:0 auto}
+.sec .wrap>*{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.sec.in .wrap>*{opacity:1;transform:none}
+.sec.in .wrap>*:nth-child(2){transition-delay:.09s}.sec.in .wrap>*:nth-child(3){transition-delay:.18s}.sec.in .wrap>*:nth-child(4){transition-delay:.27s}
+.kicker{color:var(--muted);display:flex;gap:14px;align-items:center;margin-bottom:24px}
+.kicker b{font-weight:500;color:var(--ink)}
+.h1{font-family:var(--serif);font-weight:400;font-size:clamp(3.4rem,9.6vw,10rem);line-height:.86;letter-spacing:-.03em}
+.h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,5.8vw,5.6rem);line-height:.94;letter-spacing:-.02em}
+.h1 em,.h2 em{font-style:italic}
+.body{margin-top:24px;max-width:34em;font-size:clamp(16px,1.25vw,18px);line-height:1.65;color:var(--muted)}
+
+/* one mineral, three colours */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);margin-top:clamp(50px,6vw,80px)}
+.trio div{padding:26px 26px 30px 0;border-right:1px solid var(--rule)}
+.trio div+div{padding-left:26px}.trio div:last-child{border-right:0}
+.trio .sw{height:clamp(90px,12vw,150px);margin-bottom:22px}
+.trio b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(30px,3vw,44px);line-height:1}
+.trio p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.55}
+@media(max-width:760px){.trio{grid-template-columns:1fr}.trio div,.trio div+div{padding:22px 0;border-right:0;border-bottom:1px solid var(--rule)}}
+
+/* plates: real pieces, catalogued */
+.plates{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(14px,1.6vw,24px);margin-top:clamp(50px,6vw,80px)}
+.plate{grid-column:span 4;display:block}
+.plate:nth-child(1){grid-column:span 5}.plate:nth-child(2){grid-column:span 4;margin-top:80px}.plate:nth-child(3){grid-column:span 3;margin-top:30px}
+.plate:nth-child(4){grid-column:2/span 3}.plate:nth-child(5){grid-column:span 4;margin-top:-60px}.plate:nth-child(6){grid-column:span 4}
+.plate figure{position:relative;overflow:hidden;background:var(--bone);aspect-ratio:4/5}
+.plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.plate:hover img{transform:scale(1.04)}
+.plate figcaption{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--ink);margin-top:12px;padding-top:10px}
+.plate figcaption b{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.05}
+.plate figcaption span{color:var(--muted);text-align:right}
+@media(max-width:860px){.plates{grid-template-columns:1fr 1fr}.plate,.plate:nth-child(n){grid-column:auto;margin-top:0}}
+
+/* reputation: the number, set like a museum placard */
+.rep{background:var(--ink);color:var(--paper)}
+.rep .kicker,.rep .body{color:rgba(239,232,220,.62)}.rep .kicker b{color:var(--paper)}
+.rep .grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(40px,7vw,120px);align-items:center}
+.rep .n{font-family:var(--serif);font-size:clamp(10rem,24vw,24rem);line-height:.74;letter-spacing:-.05em}
+.rep .n sup{font-size:.22em;vertical-align:top;margin-left:.15em;color:#f3c07a;letter-spacing:.05em}
+.rep ol{list-style:none;counter-reset:q}
+.rep li{counter-increment:q;display:grid;grid-template-columns:44px 1fr;gap:10px;padding:24px 0;border-top:1px solid rgba(239,232,220,.18)}
+.rep li::before{content:counter(q,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:rgba(239,232,220,.5);padding-top:10px}
+.rep q{font-family:var(--serif);font-style:italic;font-size:clamp(24px,2.3vw,34px);line-height:1.2;quotes:"“" "”"}
+@media(max-width:860px){.rep .grid{grid-template-columns:1fr}}
+
+/* visit: the address set like a label, large */
+.visit .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(40px,6vw,100px);align-items:start}
+.addr{font-family:var(--serif);font-size:clamp(3rem,6.4vw,6.2rem);line-height:.92;letter-spacing:-.02em}
+.addr em{color:var(--amethyst)}
+.rows{margin-top:40px;border-top:1px solid var(--ink)}
+.rows div{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.5}
+.rows dt{color:var(--muted);padding-top:3px}
+.rows a{border-bottom:1px solid var(--rule)}.rows a:hover{border-color:var(--amethyst);color:var(--amethyst)}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.visit .pics{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.visit .pics img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--bone)}
+.visit .pics img:first-child{grid-column:1/-1;aspect-ratio:4/3;object-position:50% 38%}
+@media(max-width:860px){.visit .grid{grid-template-columns:1fr}.rows div{grid-template-columns:90px 1fr}}
+
+/* feed */
+.feed{background:var(--bone)}
+.feed .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:30px}
+.feed .nums{display:flex;gap:clamp(22px,4vw,54px)}
+.feed .nums b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(40px,4.6vw,64px);line-height:1}
+.feed .nums span{color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:clamp(40px,5vw,64px)}
+.tiles a{position:relative;aspect-ratio:9/16;overflow:hidden;background:var(--ink)}
+.tiles img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9;transition:transform 1.3s var(--ease),opacity .5s}
+.tiles a:hover img{transform:scale(1.05);opacity:1}
+.tiles a::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,7,8,.85),transparent 50%)}
+.tiles span{position:absolute;z-index:2;left:14px;right:14px;bottom:14px;color:var(--paper);font-family:var(--serif);font-size:19px;line-height:1.1}
+.tiles span small{display:block;margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;opacity:.7}
+@media(max-width:900px){.tiles{grid-template-columns:repeat(5,62%);overflow-x:auto;scroll-snap-type:x mandatory}.tiles a{scroll-snap-align:start}}
+
+footer.foot{background:var(--ink);color:rgba(239,232,220,.7);padding:clamp(60px,8vw,110px) var(--pad) 40px}
+footer .big{font-family:var(--serif);font-size:clamp(3.4rem,11vw,11rem);line-height:.85;letter-spacing:-.03em;color:var(--paper)}
+footer .big .sign{font-family:"Ranchers",Impact,sans-serif;letter-spacing:.01em;text-transform:uppercase;color:#a47bff}
+footer .big em{color:#cdb0ff}
+footer .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;padding-top:26px;border-top:1px solid rgba(239,232,220,.18);font-size:14px;line-height:1.7}
+footer .soc{display:flex;gap:12px}
+footer .soc a{width:42px;height:42px;border:1px solid rgba(239,232,220,.25);border-radius:50%;display:grid;place-items:center;transition:border-color .3s,color .3s}
+footer .soc a:hover{border-color:#f3c07a;color:#f3c07a}
+footer .soc svg{width:17px;height:17px;fill:currentColor}
+footer small{display:block;margin-top:40px;font-size:11px;letter-spacing:.05em;color:rgba(239,232,220,.4)}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion: reduce){.sec .wrap>*{opacity:1;transform:none;transition:none}.label .swap{transition:none}}
+
+/* the shop's own sign lettering, traced from the storefront: violet faces, a deep extrusion, a warm glow behind */
+.wm{display:block;height:auto;overflow:visible}
+.wm-nav{width:150px;color:#fff;filter:drop-shadow(0 1px 10px rgba(0,0,0,.5))}
+header.top.lit .wm-nav{color:var(--ink);filter:none}
+.wm-hero{width:min(88vw,1150px);color:#8d55ff;filter:drop-shadow(.35vw .45vw 0 #1a0b3a) drop-shadow(0 0 2.2vw rgba(236,255,150,.32)) drop-shadow(0 0 5vw rgba(236,255,150,.14))}
+.wm-foot{width:min(100%,980px);color:#a47bff;margin-bottom:.12em}
+@media(max-width:820px){.wm-nav{width:118px}}
+.label .card{grid-template-columns:1fr}
+.label .line{grid-column:auto}
+</style>
+</head>
+<body>
+<a class="skip" href="#room">Skip to the shop</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="wm" viewBox="0 0 3066.865689 446.663077"><g transform="translate(-179.997850,713.630814) scale(1.000000,-1.000000)" fill="currentColor"><path d="M278 713 c-20 -5 -50 -34 -64 -62 -14 -28 -26 -67 -32 -101 -3 -23 -3 -75 1 -94 2 -14 7 -33 9 -39 5 -18 7 -24 11 -33 5 -14 12 -29 17 -36 18 -30 54 -59 77 -62 15 -2 22 1 57 26 35 24 44 54 37 119 0 7 -2 8 -10 8 -6 0 -7 -1 -12 -8 -10 -14 -17 -21 -29 -27 -13 -6 -36 5 -49 24 -13 20 -16 31 -23 84 -8 58 1 99 22 111 8 4 9 4 20 -3 13 -9 17 -14 26 -41 3 -8 6 -16 10 -27 7 -18 16 -34 22 -38 6 -4 22 22 29 49 3 13 2 47 -4 86 -3 19 -5 22 -14 32 -8 9 -10 10 -19 10 -7 1 -13 3 -19 8 -2 1 -12 6 -22 11 -8 3 -32 5 -41 3z"/> <path d="M1379 711 c-17 -2 -25 -15 -27 -44 -3 -37 -4 -48 -5 -55 -1 -5 -1 -12 -2 -16 -2 -14 -5 -33 -8 -43 -7 -30 -17 -70 -19 -76 -4 -10 -7 -23 -10 -41 -8 -40 -17 -64 -29 -79 -12 -14 -18 -23 -20 -26 -1 -4 -3 -6 -5 -5 -1 0 -2 1 8 -14 8 -12 9 -13 19 -20 17 -12 24 -13 48 -5 24 8 28 13 27 30 -1 16 -5 27 -14 38 -10 14 -10 15 16 32 5 3 4 3 23 0 17 -3 23 -7 29 -17 4 -10 2 -17 -12 -32 -7 -7 -9 -10 -9 -12 0 -4 6 -17 10 -23 23 -31 90 -32 126 -2 5 5 3 6 15 -6 5 -6 11 -11 13 -11 9 -4 19 -3 20 1 0 3 3 3 16 1 15 -1 24 -1 34 0 7 2 7 2 13 -1 9 -4 19 -4 23 0 2 3 5 2 13 -1 15 -8 25 -6 31 5 5 8 13 29 23 57 5 14 5 14 7 10 0 -3 1 -6 1 -8 0 -4 6 -23 10 -31 13 -30 62 -50 95 -40 42 13 63 43 79 115 3 10 2 55 -1 69 -8 43 -27 70 -71 100 -8 5 -18 15 -21 20 -4 7 -3 31 2 42 4 9 16 3 31 -14 9 -12 17 -23 18 -28 2 -4 4 -8 8 -12 3 -4 7 -9 9 -12 6 -9 8 -12 9 -11 2 1 4 8 5 14 1 5 2 8 3 10 15 17 14 51 -2 94 -10 28 -10 27 -30 29 -12 1 -18 3 -26 9 -12 8 -38 9 -53 2 -32 -16 -55 -59 -62 -113 -4 -35 -3 -46 7 -85 6 -27 29 -60 53 -77 10 -8 26 -22 29 -26 3 -3 6 -15 6 -20 0 -8 -9 -22 -16 -26 -14 -7 -39 16 -45 40 -4 20 -21 52 -26 52 -4 0 -11 -7 -17 -16 -5 -9 -5 -9 -16 -3 -13 8 -14 8 -15 7 -1 0 -2 -7 -3 -16 -4 -19 -5 -22 -13 -37 -11 -22 -17 -28 -26 -27 -12 0 -20 8 -25 25 -2 9 -2 225 0 237 2 10 8 20 16 27 9 8 12 16 7 28 -6 20 -19 32 -38 34 -12 2 -48 1 -53 0 -15 -6 -39 -33 -39 -45 0 -7 10 -23 23 -37 4 -4 8 -8 8 -10 4 -13 4 -241 0 -253 -2 -6 -5 -11 -16 -30 -2 -2 -4 -5 -5 -8 -3 -6 -5 -6 -8 1 -2 3 -6 11 -10 18 -15 26 -21 44 -28 78 -17 91 -23 114 -45 198 -19 72 -35 94 -63 91z m6 -174 c1 -3 4 -18 6 -28 2 -10 3 -20 6 -30 3 -13 0 -15 -18 -15 -17 0 -21 5 -17 23 1 5 3 12 3 17 6 27 8 31 13 34 5 1 6 1 7 -1z"/> <path d="M946 710 c-16 -3 -30 -12 -40 -27 -7 -8 -19 -30 -21 -34 -1 -2 -2 -4 -2 -5 -1 -3 -5 -16 -9 -29 -2 -7 -2 -9 -2 -34 0 -32 0 -38 7 -63 11 -38 22 -54 55 -81 22 -19 36 -33 36 -37 3 -15 -6 -34 -15 -37 -7 -1 -21 6 -31 17 -5 6 -7 9 -11 20 -24 55 -25 56 -32 54 -5 -2 -6 -2 -8 -7 -3 -6 -3 -6 -3 -42 -1 -38 -1 -37 5 -56 6 -24 9 -29 19 -39 14 -14 45 -29 60 -31 3 0 6 -1 7 -1 3 -1 13 -1 17 0 3 2 11 6 24 13 20 12 36 36 49 75 11 31 12 48 8 85 -5 52 -21 78 -61 105 -23 15 -30 20 -34 29 -7 14 -4 34 6 45 5 5 13 0 26 -17 14 -20 20 -29 22 -34 2 -3 6 -8 9 -12 4 -3 8 -9 10 -12 4 -6 6 -8 7 -8 1 0 1 5 1 12 0 13 1 17 6 23 6 6 6 8 5 24 -1 16 -2 19 -6 38 -4 19 -7 26 -15 40 l-6 13 -12 0 c-11 0 -11 0 -22 5 -18 8 -33 11 -49 8z"/> <path d="M653 709 c-5 -1 -10 -2 -11 -2 -4 -2 -9 -10 -12 -18 -1 -4 -3 -9 -4 -12 -3 -6 1 -15 16 -34 13 -16 16 -21 26 -40 11 -22 13 -27 17 -38 2 -5 4 -12 6 -15 13 -29 15 -60 11 -158 -1 -24 -2 -26 -12 -37 -19 -21 -9 -48 23 -65 20 -10 66 -5 86 11 17 13 18 27 5 50 -17 32 -20 51 -17 110 4 60 6 66 25 111 19 44 24 51 48 75 21 20 22 24 15 37 -12 23 -20 27 -61 24 -21 -1 -21 -1 -29 -15 -9 -15 -9 -14 -1 -42 4 -15 4 -21 -1 -32 -1 -2 -2 -5 -3 -7 -3 -6 -5 -8 -9 -7 -4 2 -10 8 -16 17 -2 4 -5 9 -6 11 -2 3 0 10 10 25 8 12 8 17 4 25 -8 14 -22 24 -35 26 -9 1 -64 1 -75 0z"/> <path d="M1094 708 c-3 -3 -12 -24 -16 -36 -2 -5 -5 -14 -7 -20 -8 -22 -9 -28 -9 -45 0 -16 0 -16 7 -34 11 -26 9 -25 24 -14 14 12 19 20 23 36 4 15 8 21 16 21 4 0 4 -7 4 -97 1 -130 0 -140 -13 -156 -19 -22 -22 -32 -15 -47 7 -14 11 -17 36 -29 l17 -7 15 0 c34 0 61 16 64 37 2 12 -5 32 -14 42 -10 10 -9 0 -9 127 0 122 -1 118 6 123 6 5 9 2 15 -24 6 -21 7 -24 13 -29 5 -5 5 -5 5 -11 0 -12 6 -17 9 -8 1 3 2 5 1 5 -1 -1 -1 0 0 3 1 2 2 3 2 3 2 -1 14 18 16 25 2 9 2 48 0 64 -4 21 -10 42 -19 61 -5 11 3 10 -68 9 -42 0 -65 0 -72 1 -24 2 -29 2 -31 0z"/> <path d="M2273 709 c-8 -3 -27 -25 -30 -36 -4 -9 3 -20 17 -26 2 -1 3 -2 4 -4 2 -4 2 -40 1 -60 -3 -30 -4 -32 -10 -35 -2 -1 -4 -3 -5 -4 -3 -5 -4 -5 -9 2 -13 20 -18 74 -10 107 2 7 5 14 5 15 4 7 -19 36 -30 40 -7 1 -42 2 -54 0 -9 -2 -9 -2 -16 -9 -7 -7 -13 -17 -15 -26 -1 -6 -2 -5 -6 4 -5 11 -17 23 -26 27 -9 4 -48 4 -56 0 -16 -7 -36 -29 -36 -39 0 -6 13 -33 20 -39 7 -7 8 -15 12 -57 4 -33 4 -37 9 -55 4 -14 5 -18 9 -47 1 -8 3 -21 5 -29 3 -13 6 -29 15 -77 8 -41 22 -83 29 -88 3 -2 3 -2 8 0 13 7 24 34 37 92 6 28 9 39 15 61 4 11 8 24 9 28 0 3 1 8 2 9 1 4 2 2 4 -10 1 -6 3 -18 5 -26 1 -7 4 -20 4 -28 5 -34 12 -68 21 -93 12 -34 16 -41 19 -39 1 1 2 2 2 2 0 1 2 3 4 6 9 11 14 21 20 38 6 16 25 97 31 134 2 10 6 31 9 47 3 16 7 35 8 42 1 6 4 21 7 32 3 11 6 26 7 32 3 15 5 22 7 26 7 8 20 40 20 47 0 8 -18 29 -30 34 -7 3 -25 4 -32 2z m-144 -71 c3 -9 8 -22 11 -31 7 -20 7 -22 -1 -39 -3 -7 -7 -15 -9 -18 -2 -3 -5 -8 -6 -10 -3 -5 -6 -6 -8 -3 -3 5 -14 78 -14 91 0 5 6 18 11 21 2 1 4 4 5 6 3 6 3 5 11 -17z"/> <path d="M2418 709 c-24 -5 -53 -35 -75 -77 -19 -37 -32 -122 -26 -163 8 -53 23 -105 38 -132 13 -23 48 -60 58 -60 9 -1 37 8 51 15 33 17 55 48 73 103 15 45 17 146 4 198 -13 53 -40 95 -68 110 -13 6 -39 9 -55 6z m15 -95 c6 -4 13 -17 17 -29 6 -28 13 -61 15 -78 1 -13 3 -68 3 -89 -1 -23 -6 -34 -18 -40 -11 -5 -15 -3 -22 14 -16 34 -17 38 -25 109 -7 67 -7 78 1 93 10 20 19 26 29 20z"/> <path d="M2854 709 c-17 -1 -25 -4 -34 -13 -9 -10 -16 -23 -16 -29 0 -9 19 -34 29 -38 3 -1 3 -8 3 -88 0 -70 -1 -111 -2 -124 -1 -2 -2 -10 -2 -18 -4 -32 -5 -34 -15 -51 -8 -13 -7 -13 -17 -4 -18 16 -23 26 -23 40 1 10 1 12 -2 28 -2 10 -4 20 -5 22 -1 7 -7 32 -8 34 -3 6 -11 16 -20 25 l-9 10 5 5 c10 9 20 25 23 38 4 18 6 67 3 87 -5 34 -20 61 -42 72 -5 3 -5 3 -54 3 -72 0 -84 -1 -88 -4 -9 -8 -17 -27 -16 -37 1 -6 7 -20 11 -24 8 -9 9 -11 8 -106 0 -96 -1 -138 -6 -157 -2 -9 -19 -47 -23 -52 -3 -4 -2 -6 4 -15 8 -11 14 -16 33 -27 l14 -7 13 3 c36 9 50 17 57 31 5 10 4 14 -5 27 -10 17 -12 23 -12 45 0 10 0 21 1 24 0 2 1 12 2 21 2 24 2 25 6 27 5 3 7 2 9 -2 0 -2 2 -5 3 -7 2 -3 2 -5 4 -22 3 -52 7 -74 16 -104 5 -16 16 -30 33 -42 7 -6 9 -6 22 -1 3 1 9 3 12 4 12 4 17 8 24 18 8 12 14 12 17 1 1 -2 2 -6 4 -7 3 -3 2 -6 -2 -5 -3 2 -9 -4 -7 -7 2 -1 8 -1 11 0 3 1 5 6 3 9 -1 1 -1 1 1 2 2 1 92 -1 111 -2 28 -2 48 -1 51 2 3 2 8 13 11 23 4 9 6 8 12 -4 4 -8 5 -22 3 -24 -3 -3 -3 -8 -1 -9 7 -1 10 0 12 5 1 2 1 5 2 6 0 1 8 1 42 1 44 -1 48 -1 54 -6 0 -1 1 -1 2 -1 0 1 5 2 10 3 47 7 79 35 98 85 10 25 12 34 16 63 10 64 9 97 -6 173 -7 39 -27 73 -52 91 -13 9 -11 9 -88 9 -78 0 -71 0 -79 -9 -14 -18 -15 -32 -1 -53 9 -13 9 0 8 -134 0 -121 0 -149 -2 -152 -1 -2 -9 -5 -16 -5 l-4 0 0 18 c0 18 -1 61 -3 64 0 2 -2 3 -11 4 -12 0 -12 0 -14 -16 -3 -18 -11 -35 -23 -48 -17 -17 -30 -15 -40 4 -4 7 -4 17 -3 96 1 147 0 145 18 167 9 13 11 17 11 29 0 10 -2 14 -10 24 -8 10 -12 11 -38 12 -13 0 -27 -1 -33 -1z m266 -69 c13 -6 24 -20 31 -38 5 -13 5 -12 6 -95 0 -85 -1 -105 -3 -113 -3 -9 -22 -27 -34 -33 -8 -4 -15 -5 -16 -4 -2 2 -2 225 0 254 2 33 3 35 16 29z m-443 -2 c1 -1 4 -8 6 -14 2 -6 2 -72 0 -80 -1 -7 -2 -8 -13 -7 -15 1 -15 3 -12 26 1 9 3 25 4 35 2 32 7 45 15 40z"/> <path d="M418 707 c-4 -2 -15 -14 -18 -21 -3 -7 -3 -7 -1 -12 1 -5 7 -17 10 -21 8 -11 15 -30 17 -42 2 -11 3 -73 2 -150 0 -73 1 -67 -9 -89 -3 -7 -6 -15 -7 -18 -2 -4 -4 -9 -5 -12 -2 -3 -3 -7 -3 -9 0 -8 10 -22 21 -30 12 -9 47 -22 49 -18 1 0 5 2 9 4 16 5 32 13 38 20 7 6 6 11 -5 45 -9 25 -9 28 -11 57 -1 9 -2 20 -2 24 -1 8 -1 17 0 19 1 1 9 3 13 2 9 0 13 -14 16 -50 4 -45 14 -84 28 -101 7 -9 35 -25 43 -25 10 0 37 21 41 32 4 9 2 24 -6 39 -2 3 -5 9 -7 13 -3 7 -5 13 -10 46 -10 55 -14 65 -34 83 -13 12 -13 11 -4 21 29 32 36 100 15 147 -9 20 -31 42 -44 46 -6 2 -132 1 -136 0z m93 -70 c9 -10 20 -40 20 -54 0 -12 -6 -31 -14 -42 -6 -8 -17 -8 -19 0 -2 5 -1 92 1 97 2 5 7 5 12 -1z"/></g></symbol></svg>
+
+<div id="loader" aria-hidden="true"><div class="row mono"><span>Crystals World</span><span>Austin</span></div><div class="bar"><i></i></div></div>
+<div class="case" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="Crystals World, back to top"><svg class="wm wm-nav" viewBox="0 0 3066.865689 446.663077" aria-hidden="true"><use href="#wm"/></svg><span class="mono">Austin · TX</span></a>
+  <nav class="main" aria-label="Primary">
+    <a href="#pieces">Pieces</a>
+    <a href="#reviews">Reviews</a>
+    <a class="pill" href="#visit">Visit</a>
+  </nav>
+</header>
+
+<section id="film" aria-label="Crystals World">
+  <div id="stage">
+    <canvas id="cv" role="img" aria-label="A close-up of an amethyst cluster in soft light"></canvas>
+    <div class="shade"></div>
+
+    <div class="open" id="top">
+      <p class="mono" style="margin:0 0 24px">3202 Guadalupe St · Austin, Texas</p>
+      <h1><svg class="wm wm-hero" viewBox="0 0 3066.865689 446.663077" role="img" aria-label="Crystals World"><use href="#wm"/></svg></h1>
+      <p class="mono">Crystals · Minerals · Jewelry</p>
+    </div>
+
+    <div class="label" aria-live="polite">
+      <div class="card">
+        <span class="name swap">Amethyst</span>
+        <span class="spec mono swap">Points · clusters · geodes · druzy hearts</span>
+        <span class="line swap">Every large piece is one of a kind, and ready for pickup on Guadalupe.</span>
+      </div>
+    </div>
+
+    <div class="finale">
+      <h2>Come find<br>something <em>you didn’t know</em> you were looking for.</h2>
+      <div class="ctas">
+        <a class="btn btn-glass" href="#visit">Plan your visit <span class="arr" aria-hidden="true">→</span></a>
+        <a class="btn btn-line" href="#pieces">See the pieces</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="room" id="room">
+  <div class="dawn" aria-hidden="true"></div>
+  <section class="sec" id="pieces" aria-labelledby="pieces-h" style="align-items:flex-start">
+    <div class="wrap">
+      <p class="kicker mono"><b>01</b> On the shelves now</p>
+      <h2 class="h2" id="pieces-h">Every large piece<br><em>is the only one.</em></h2>
+      <div class="plates">
+        <a class="plate" href="#visit"><figure><img src="img/amethyst-heart.jpg" alt="An amethyst druzy heart on a black stand" loading="lazy"></figure><figcaption><b>Amethyst heart</b><span class="mono">No. 014<br>Druzy · on stand</span></figcaption></a>
+        <a class="plate" href="#visit"><figure><img src="img/hero-citrine-heart.jpg" alt="A citrine druzy heart on a gold chain-link stand" loading="lazy"></figure><figcaption><b>Citrine heart</b><span class="mono">No. 022<br>Brazil</span></figcaption></a>
+        <a class="plate" href="#visit"><figure><img src="img/lapis-freeform.jpg" alt="A polished lapis lazuli freeform in a wooden holder" loading="lazy"></figure><figcaption><b>Lapis freeform</b><span class="mono">No. 031<br>Polished</span></figcaption></a>
+        <a class="plate" href="#visit"><figure><img src="img/banded-vase.jpg" alt="A carved vase of banded white onyx with blue-grey veins" loading="lazy"></figure><figcaption><b>Onyx vase</b><span class="mono">No. 046<br>White, blue shade</span></figcaption></a>
+        <a class="plate" href="#visit"><figure><img src="img/amethyst-cluster.jpg" alt="An amethyst cluster on a black tripod stand" loading="lazy"></figure><figcaption><b>Amethyst cluster</b><span class="mono">No. 051<br>On tripod</span></figcaption></a>
+        <a class="plate" href="#visit"><figure><img src="img/lapis-necklace.jpg" alt="A necklace of deep blue lapis lazuli beads on a display bust" loading="lazy"></figure><figcaption><b>Lapis necklace</b><span class="mono">No. 058<br>Faceted beads</span></figcaption></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rep" id="reviews" aria-labelledby="rep-h">
+    <div class="wrap grid">
+      <div>
+        <p class="kicker mono"><b>02</b> On Google</p>
+        <p class="n" id="rep-h" aria-label="Rated 5.0 from 203 Google reviews">5.0</p>
+        <p class="mono" style="margin-top:22px;color:#f3c07a;letter-spacing:.2em">★★★★★ &nbsp;203 Google reviews</p>
+      </div>
+      <ol>
+        <li><q>This store has the most beautiful pieces, the vibe and the staff is unmatched!</q></li>
+        <li><q>Such a nice place with nice owner, gave me nice discount for my first visit!</q></li>
+        <li><q>Great service and super clean organized environment.</q></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec visit" id="visit" aria-labelledby="visit-h">
+    <div class="wrap grid">
+      <div>
+        <p class="kicker mono"><b>03</b> Visit</p>
+        <h2 class="addr" id="visit-h">3202 Guadalupe St,<br>Suite C. <em>Under the purple sign.</em></h2>
+        <dl class="rows">
+          <div><dt class="mono">City</dt><dd>Austin, TX 78705</dd></div>
+          <div><dt class="mono">Phone</dt><dd><a href="tel:+17373208079">(737) 320-8079</a></dd></div>
+          <div><dt class="mono">Hours</dt><dd>Open late most days. Call ahead for today’s hours.</dd></div>
+          <div><dt class="mono">Also</dt><dd>In-store pickup · Retail &amp; wholesale · Ships by USPS, UPS and DHL, US and worldwide</dd></div>
+        </dl>
+        <div class="ctas">
+          <a class="btn btn-ink" href="https://www.google.com/maps/dir/?api=1&amp;destination=Crystals+World%2C+3202+Guadalupe+St+Ste+C%2C+Austin%2C+TX+78705" target="_blank" rel="noopener noreferrer">Get directions <span class="arr" aria-hidden="true">→</span></a>
+          <a class="btn btn-ink-line" href="tel:+17373208079">Call the shop</a>
+        </div>
+      </div>
+      <div class="pics">
+        <img src="img/storefront-night.jpg" alt="The Crystals World storefront at night under its purple sign" loading="lazy">
+        <img src="img/shop-shelves.jpg" alt="White shelves of crystals and minerals inside the shop" loading="lazy">
+        <img src="img/shop-counter.jpg" alt="The shop counter and glass cases" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="sec feed" aria-labelledby="feed-h">
+    <div class="wrap">
+      <div class="top">
+        <div><p class="kicker mono"><b>04</b> @crystals_world01</p><h2 class="h2" id="feed-h">New arrivals,<br><em>filmed first.</em></h2></div>
+        <dl class="nums"><div><dd><b>40.7K</b></dd><dt class="mono">Followers</dt></div><div><dd><b>476K</b></dd><dt class="mono">Likes</dt></div><div><dd><b>447</b></dd><dt class="mono">Videos</dt></div></dl>
+      </div>
+      <div class="tiles">
+        <a href="https://www.tiktok.com/@crystals_world01/video/7678524286105095455" target="_blank" rel="noopener noreferrer"><img src="img/lapis-heart.jpg" alt="" loading="lazy"><span>Lapis heart on stand<small>TikTok ↗</small></span></a>
+        <a href="https://www.tiktok.com/@crystals_world01/video/7677782234543197470" target="_blank" rel="noopener noreferrer"><img src="img/amethyst-heart.jpg" alt="" loading="lazy"><span>Amethyst heart<small>TikTok ↗</small></span></a>
+        <a href="https://www.tiktok.com/@crystals_world01/video/7686325204833815838" target="_blank" rel="noopener noreferrer"><img src="img/hero-citrine-heart.jpg" alt="" loading="lazy"><span>Citrine heart, Brazil<small>TikTok ↗</small></span></a>
+        <a href="https://www.tiktok.com/@crystals_world01/video/7681497216254627102" target="_blank" rel="noopener noreferrer"><img src="img/banded-vase.jpg" alt="" loading="lazy"><span>White onyx vase<small>TikTok ↗</small></span></a>
+        <a href="https://www.tiktok.com/@crystals_world01/video/7678157322471902494" target="_blank" rel="noopener noreferrer"><img src="img/lapis-necklace.jpg" alt="" loading="lazy"><span>Lapis necklace<small>TikTok ↗</small></span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="big"><svg class="wm wm-foot" viewBox="0 0 3066.865689 446.663077" role="img" aria-label="Crystals World"><use href="#wm"/></svg><em>on Guadalupe.</em></p>
+    <div class="cols">
+      <div>3202 Guadalupe St Ste C<br>Austin, TX 78705<br><a href="tel:+17373208079">(737) 320-8079</a></div>
+      <div>Retail &amp; wholesale crystals, minerals, gemstones and jewelry.</div>
+      <div class="soc" aria-label="Social media">
+        <a href="https://www.tiktok.com/@crystals_world01" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.910 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+        <a href="https://www.instagram.com/crystals_world01/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+        <a href="https://www.facebook.com/share/19NQg3GGVh/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg></a>
+      </div>
+    </div>
+    <small>Concept website prepared for Crystals World. Photography is the shop’s own; the opening film is a generated concept piece. Crystals are decorative and collectible, not medical.</small>
+  </footer>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const FRAME_COUNT = 100;   // amethyst only: the push-in over the cluster, before the light turns toward quartz
+  // Big screens (ultrawide, 4K, large retina) get the 3200px set upscaled from 4K; everything else the 1920px set.
+  const BIG = Math.max(screen.width, innerWidth) * Math.min(devicePixelRatio || 1, 1.5) > 2200;
+  const SET = BIG ? 'x' : 'd';
+  const frameURL = (i) => `frames/${SET}/${String(i + 1).padStart(4, '0')}.jpg`;
+  // chapter labels: [film progress where it begins, numeral, name, spec line, one line]
+  // one middle moment: the film has three text beats (logo at the start, this line in the middle, the call to action at the end)
+  const CH = [
+    [0.00, '', 'Amethyst', 'Points · clusters · geodes · druzy hearts', 'Every large piece is one of a kind, and ready for pickup on Guadalupe.'],
+  ];
+  // on a narrow viewport the film is cropped hard: keep the crystal in frame
+  const FOCUS = [[0, .74], [.4, .62], [1, .56]];
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const JUMP = new URLSearchParams(location.search).get('jump');
+  if (JUMP !== null) history.scrollRestoration = 'manual';
+
+  const film = document.getElementById('film'), cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d', { alpha: false });
+  const openEl = document.querySelector('.open'), label = document.querySelector('.label');
+  const L = { no: label.querySelector('.no'), name: label.querySelector('.name'), spec: label.querySelector('.spec'), line: label.querySelector('.line') };
+  const idx = [...document.querySelectorAll('.index span')];
+  const finale = document.querySelector('.finale'), header = document.querySelector('header.top'), caseEl = document.querySelector('.case');
+
+  /* frames as compressed blobs; only a small window around the playhead is decoded (keeps memory flat) */
+  const blobs = new Array(FRAME_COUNT); let loaded = 0;
+  const bar = document.querySelector('#loader .bar i');
+  let order = [...Array(FRAME_COUNT).keys()];
+  if (JUMP !== null) {
+    scrollTo(0, +JUMP || 0);
+    const r = film.getBoundingClientRect();
+    const c = Math.round(Math.max(0, Math.min(1, -r.top / (r.height - innerHeight))) * (FRAME_COUNT - 1));
+    order.sort((a, b) => Math.abs(a - c) - Math.abs(b - c));
+  }
+  let cursor = 0, inflight = 0;
+  function pump() {
+    while (inflight < 8 && cursor < order.length) {
+      const i = order[cursor++]; inflight++;
+      fetch(frameURL(i)).then((r) => (r.ok ? r.blob() : null)).then((bl) => {
+        inflight--;
+        if (bl) { blobs[i] = bl; loaded++; bar.style.width = `${Math.min(100, (loaded / 48) * 100)}%`; if (loaded === 48) boot(); }
+        pump();
+      }).catch(() => { inflight--; pump(); });
+    }
+  }
+  const bitmaps = new Map(), decoding = new Set();
+  // decoded 3200px frames are ~23MB each, so the big set keeps a tighter window
+  const AHEAD = BIG ? 14 : 30, KEEP = BIG ? 6 : 18, MAXDEC = BIG ? 3 : 4;
+  function ensureBitmaps(center) {
+    const lo = Math.max(0, center - KEEP), hi = Math.min(FRAME_COUNT - 1, center + AHEAD);
+    for (const k of [...bitmaps.keys()]) if (k < lo || k > hi) { bitmaps.get(k).close(); bitmaps.delete(k); }
+    for (let d = 0; d <= AHEAD && decoding.size < MAXDEC; d++) {
+      for (const i of d ? [center + d, center - d] : [center]) {
+        if (i < lo || i > hi || bitmaps.has(i) || decoding.has(i) || !blobs[i]) continue;
+        decoding.add(i);
+        createImageBitmap(blobs[i]).then((bm) => {
+          decoding.delete(i);
+          const c = Math.round(current);
+          if (i < c - KEEP || i > c + AHEAD) { bm.close(); return; }
+          bitmaps.set(i, bm); if (Math.abs(i - c) <= 1) draw(true);
+        }).catch(() => decoding.delete(i));
+        if (decoding.size >= MAXDEC) break;
+      }
+    }
+  }
+  function nearest(i) {
+    for (let d = 0; d <= AHEAD + KEEP; d++) { if (bitmaps.has(i - d)) return bitmaps.get(i - d); if (bitmaps.has(i + d)) return bitmaps.get(i + d); }
+    return null;
+  }
+
+  let W = 0, H = 0;
+  function size() {
+    const dpr = Math.min(devicePixelRatio || 1, 1.5);
+    W = Math.round(innerWidth * dpr); H = Math.round(innerHeight * dpr);
+    cv.width = W; cv.height = H;
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+    draw(true);
+  }
+  function focusAt(p) {
+    for (let k = 1; k < FOCUS.length; k++) if (p <= FOCUS[k][0]) {
+      const [a, fa] = FOCUS[k - 1], [b, fb] = FOCUS[k]; const t = (p - a) / (b - a || 1);
+      return fa + (fb - fa) * t * t * (3 - 2 * t);
+    }
+    return FOCUS[FOCUS.length - 1][1];
+  }
+  let displayed = -1, progress = 0, current = 0, target = 0;
+  function draw(force) {
+    const i = Math.max(0, Math.min(FRAME_COUNT - 1, Math.round(current)));
+    if (!force && i === displayed) return;
+    const src = bitmaps.get(i) || nearest(i); if (!src) return;
+    displayed = i;
+    const s = Math.max(W / src.width, H / src.height), w = src.width * s, h = src.height * s, over = w - W;
+    ctx.drawImage(src, over > 1 ? -over * focusAt(progress) : (W - w) / 2, (H - h) / 2, w, h);
+  }
+
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const ease = (x) => x * x * (3 - 2 * x);
+  let chapter = -1, flipT;
+  function setChapter(c) {
+    if (c === chapter) return;
+    const first = chapter === -1; chapter = c;
+    const [, no, name, spec, line] = CH[c];
+    const write = () => { if (L.no) L.no.textContent = no; L.name.textContent = name; L.spec.textContent = spec; L.line.textContent = line; label.classList.remove('flip'); };
+    idx.forEach((el, k) => el.classList.toggle('on', k === c));
+    if (first || reduce) return write();
+    label.classList.add('flip'); clearTimeout(flipT); flipT = setTimeout(write, 260);
+  }
+  function apply(p) {
+    const o = 1 - ease(clamp(p / 0.1));                          // wordmark leaves over the first 10%
+    openEl.style.opacity = o.toFixed(3); openEl.style.transform = `translateY(${(-40 * (1 - o)).toFixed(1)}px) scale(${(1 + .04 * (1 - o)).toFixed(3)})`;
+    const lab = ease(clamp((p - 0.3) / 0.07)) * (1 - ease(clamp((p - 0.6) / 0.07)));   // the middle moment
+    label.style.opacity = lab.toFixed(3);
+    let c = 0; CH.forEach((ch, k) => { if (p >= ch[0]) c = k; }); setChapter(c);
+    const f = ease(clamp((p - 0.86) / 0.07));
+    finale.style.opacity = f.toFixed(3); finale.style.marginTop = `${((1 - f) * 24).toFixed(1)}px`;
+    finale.classList.toggle('live', f > .5);
+    const past = film.getBoundingClientRect().bottom < innerHeight * 0.35;
+    header.classList.toggle('lit', past); caseEl.classList.toggle('off', p > .97 || past);
+  }
+  function filmProgress() { const r = film.getBoundingClientRect(); return clamp(-r.top / (r.height - innerHeight)); }
+  function tick() {
+    progress = filmProgress();
+    target = progress * (FRAME_COUNT - 1);
+    current = reduce ? target : current + (target - current) * 0.14;
+    if (Math.abs(target - current) < 0.02) current = target;
+    ensureBitmaps(Math.round(current)); draw(false); apply(progress);
+    requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px', threshold: .12 });
+  document.querySelectorAll('.sec').forEach((s) => io.observe(s));
+
+  let booted = false;
+  function boot() {
+    if (booted) return; booted = true;
+    size(); addEventListener('resize', size);
+    if (JUMP !== null) {
+      scrollTo(0, +JUMP || 0);
+      document.querySelectorAll('.sec').forEach((s) => s.classList.add('in'));
+      progress = filmProgress(); current = target = progress * (FRAME_COUNT - 1);
+    }
+    ensureBitmaps(Math.round(current)); apply(filmProgress());
+    requestAnimationFrame(tick);
+    document.getElementById('loader').classList.add('done');
+    setTimeout(() => { draw(true); window.__ready = true; }, JUMP !== null ? 1200 : 400);
+  }
+  pump();
+})();
+</script>
+</body>
+</html>
