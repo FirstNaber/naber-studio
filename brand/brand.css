@@ -378,3 +378,52 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
   .calc-peek i{font-style:normal;margin-left:auto;color:var(--ink)}
 }
 .calc-peek b{text-transform:none}
+
+/* ===== catering calculator: one question at a time, then the range ===== */
+.wiz{padding:clamp(24px,4vw,56px);border-radius:36px;max-width:980px}
+.wiz[hidden]{display:none}
+.wiz.pop .q-title,.wiz.pop .wiz-help,.wiz.pop .wiz-in{animation:qIn .45s var(--ease)}
+.wiz-top{display:flex;align-items:center;gap:16px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:26px}
+.wiz-bar{flex:1;height:3px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.wiz-bar b{display:block;height:100%;width:10%;background:var(--o);transition:width .4s var(--ease)}
+.wiz .q-title{display:block;margin-bottom:12px}
+.wiz-help{color:var(--dim);font-size:13.5px;max-width:48em;margin-bottom:26px}
+.wiz-in{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+.wiz-to{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.money.big input{width:min(280px,70vw);height:76px;border-radius:20px;font-size:44px;padding-left:34px}
+.money.big[data-post]:not([data-pre]) input{padding-left:20px;padding-right:44px}
+.money.big::before,.money.big::after{font-size:22px}
+.money:not([data-pre]) input{padding-left:14px}
+.wiz-acts{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:32px}
+.wiz-acts .q-back{margin-top:0}
+.sheet{gap:6px}
+.sheet fieldset{border:0;display:grid;gap:8px}
+.sheet fieldset+fieldset{margin-top:14px;padding-top:16px;border-top:1px solid var(--line)}
+.sheet legend{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:22px;margin-bottom:8px}
+.sheet-row{display:grid;grid-template-columns:minmax(0,1fr) 132px;align-items:center;gap:12px;font-size:12.5px;color:#d6d6d2}
+.sheet-row .money input{height:42px;font-size:21px}
+.miss.range{font-size:clamp(48px,5.6vw,96px);line-height:.9}
+.miss.range small{font-size:.4em}
+.ladder{display:grid;grid-template-columns:1fr auto 1fr auto 1.3fr;align-items:stretch;gap:8px;margin-top:28px}
+.ladder>i{align-self:center;font-style:normal;color:var(--faint)}
+.ladder div{padding:14px 14px 12px;border-radius:16px;background:rgba(0,0,0,.28);border:1px solid var(--line);min-width:0}
+.ladder span{display:block;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.ladder b{display:block;font-family:var(--head);font-weight:800;font-size:clamp(26px,2.4vw,38px);line-height:1.05;font-variant-numeric:tabular-nums}
+.ladder .hot{border-color:rgba(255,229,102,.5);box-shadow:0 0 50px -14px rgba(255,229,102,.35)}
+.ladder .hot b{color:var(--y)}
+.ladder em{display:block;font-size:11px;color:var(--y);margin-top:2px}
+@media(max-width:640px){
+  .ladder{grid-template-columns:1fr}
+  .ladder>i{justify-self:center;transform:rotate(90deg);line-height:1}
+  .sheet-row{grid-template-columns:minmax(0,1fr) 112px}
+  .money.big input{height:64px;font-size:36px}
+  .wiz-in .money.big input{width:min(150px,38vw)}
+  .wiz-in>.money.big:only-child input{width:min(260px,80vw)}
+}
+@media(max-width:640px){
+  .hide-sm{display:none!important}
+  .wiz-in{flex-wrap:nowrap;gap:10px}
+  .wiz-in .money.big input{width:min(128px,32vw);padding-right:34px}
+  .wiz-in .money.big[data-pre] input{padding-left:30px}
+  .calc-peek b{font-size:19px}
+}

@@ -1,86 +1,47 @@
-/* "What are you missing?" calculator. It asks what kind of business it is and whether they have their numbers,
-   then builds a calculator for that business model: Meta ad spend and cost per customer in; new customers,
-   revenue and the money left on the table out. Renders into every [data-calc]. */
+/* "What are you missing?" — the buffet → catering calculator.
+   It asks for the restaurant's numbers one question at a time, then shows a range (low to high) of the catering
+   revenue left on the table each month and year by never following up with guests who already eat there.
+   Costs counted: only what it takes to close a catering customer, plus the retainer. Renders into every [data-calc]. */
 (() => {
-  const SPEND = { id: 'spend', label: 'Monthly ad spend', hint: 'Facebook + Instagram (Meta)', where: 'Ads Manager → Amount spent, last 30 days', pre: '$', min: 100, max: 50000, step: 50, log: true };
-  const FEE = { id: 'fee', label: 'Naber Studio retainer', hint: 'per month', pre: '$', v: 99, min: 0, max: 5000, step: 1 };
-  const MARGIN = { id: 'margin', post: '%', v: 100, min: 5, max: 100, step: 1 };
-
-  // Each business model: its own words, questions and sample numbers. `party` only exists where one customer brings others.
-  const MODELS = {
-    restaurant: {
-      name: 'Restaurant or café', eg: 'Buffets, diners, cafés, bars, food trucks', one: 'guest', many: 'guests', first: 'visit', spend: 1000,
-      fields: [
-        { id: 'cpa', label: 'Cost per new guest', hint: 'what the ads pay for one guest', where: 'Ads Manager → Cost per result', pre: '$', v: 8, min: 1, max: 300, step: 0.5, log: true },
-        { id: 'aov', label: 'Spend per person, per visit', hint: 'e.g. $20 for the buffet', where: 'Your register: sales ÷ covers', pre: '$', v: 20, min: 2, max: 500, step: 1, log: true },
-        { id: 'party', label: 'People per visit', hint: 'the guest plus who they bring', where: 'Your register: covers ÷ checks', post: '×', v: 2, min: 1, max: 12, step: 0.5 },
-        { id: 'repeat', label: 'Visits per guest in a year', hint: 'including the first one', where: 'Loyalty app or your best guess', post: '×', v: 4, min: 1, max: 52, step: 1 },
-      ],
-      more: [{ id: 'close', label: 'Guests who actually come in', hint: 'of the ones the ad reaches', where: 'Redeemed offers ÷ claimed offers', post: '%', v: 100, min: 5, max: 100, step: 1 }],
-      margin: 'Kept after food and labor costs',
-    },
-    shop: {
-      name: 'Shop or retail', eg: 'Boutiques, gift and crystal shops, bookshops, plant shops', one: 'customer', many: 'customers', first: 'purchase', spend: 1000,
-      fields: [
-        { id: 'cpa', label: 'Cost per new customer', hint: 'what the ads pay for one customer', where: 'Ads Manager → Cost per result', pre: '$', v: 15, min: 1, max: 500, step: 1, log: true },
-        { id: 'aov', label: 'Average sale', hint: 'what one customer spends per visit', where: 'Your register: sales ÷ transactions', pre: '$', v: 45, min: 2, max: 5000, step: 1, log: true },
-        { id: 'repeat', label: 'Purchases per customer in a year', hint: 'including the first one', where: 'Your register or your best guess', post: '×', v: 3, min: 1, max: 52, step: 1 },
-      ],
-      more: [{ id: 'close', label: 'People who come in and buy', hint: 'of the ones the ad brings', where: 'Your best guess', post: '%', v: 100, min: 5, max: 100, step: 1 }],
-      margin: 'Kept after the cost of what you sell',
-    },
-    services: {
-      name: 'Appointments', eg: 'Salons, barbers, gyms, tattoo, clinics, detailing', one: 'client', many: 'clients', spend: 1500, first: 'appointment',
-      fields: [
-        { id: 'cpa', label: 'Cost per booked appointment', hint: 'what the ads pay for one booking', where: 'Ads Manager → Cost per result', pre: '$', v: 25, min: 1, max: 500, step: 1, log: true },
-        { id: 'close', label: 'Bookings that show up', hint: 'and pay', where: 'Your booking app: completed ÷ booked', post: '%', v: 85, min: 5, max: 100, step: 1 },
-        { id: 'aov', label: 'Price per visit', hint: 'what one appointment brings in', where: 'Your booking app: average ticket', pre: '$', v: 60, min: 5, max: 5000, step: 1, log: true },
-        { id: 'repeat', label: 'Visits per client in a year', hint: 'including the first one', where: 'Your booking app: visits ÷ clients', post: '×', v: 6, min: 1, max: 52, step: 1 },
-      ],
-      more: [],
-      margin: 'Kept after supplies and staff pay',
-    },
-    store: {
-      name: 'Online store', eg: 'Shopify, Etsy, eBay, shipping orders', one: 'buyer', many: 'buyers', first: 'order', spend: 2000,
-      fields: [
-        { id: 'cpa', label: 'Cost per purchase', hint: 'what the ads pay for one order', where: 'Ads Manager → Cost per purchase', pre: '$', v: 30, min: 1, max: 500, step: 1, log: true },
-        { id: 'aov', label: 'Average order', hint: 'what one order is worth', where: 'Store dashboard → Average order value', pre: '$', v: 80, min: 5, max: 5000, step: 1, log: true },
-        { id: 'repeat', label: 'Orders per buyer in a year', hint: 'including the first one', where: 'Store dashboard → returning customer rate', post: '×', v: 1.5, min: 1, max: 24, step: 0.5 },
-      ],
-      more: [],
-      margin: 'Kept after product, shipping and fees',
-    },
-    leads: {
-      name: 'Quotes & big jobs', eg: 'Contractors, auto repair, med spas, event venues', one: 'client', many: 'clients', spend: 2000, first: 'job',
-      fields: [
-        { id: 'cpa', label: 'Cost per lead', hint: 'a call, form or message', where: 'Ads Manager → Cost per lead', pre: '$', v: 40, min: 1, max: 1000, step: 1, log: true },
-        { id: 'close', label: 'Leads that become jobs', hint: 'your close rate', where: 'Your CRM or quote book: won ÷ leads', post: '%', v: 20, min: 1, max: 100, step: 1 },
-        { id: 'aov', label: 'Average job size', hint: 'what one job is worth', where: 'Your invoices: average invoice', pre: '$', v: 1500, min: 50, max: 100000, step: 50, log: true },
-        { id: 'repeat', label: 'Jobs per client in a year', hint: 'including the first one', where: 'Your invoices or your best guess', post: '×', v: 1, min: 1, max: 12, step: 0.5 },
-      ],
-      more: [],
-      margin: 'Kept after materials and labor',
-    },
+  // every number the calculator needs; `lo`/`hi` pairs are asked as a range ("between __ and __")
+  const F = {
+    g:     { label: 'Guests a month', pre: '', v: 3000, step: 50, group: 'buffet' },
+    spend: { label: 'Spend per guest, per visit', pre: '$', v: 20, step: 1, group: 'buffet' },
+    visits:{ label: 'Visits per guest a year', post: '×', v: 4, step: 1, group: 'buffet' },
+    reach: { label: 'Guests who’d give their number', post: '%', v: 30, step: 1, max: 100, group: 'buffet' },
+    convLo:{ label: 'Who order catering: low', post: '%', v: 1, step: 0.5, max: 100, group: 'catering' },
+    convHi:{ label: 'Who order catering: high', post: '%', v: 3, step: 0.5, max: 100, group: 'catering' },
+    ordLo: { label: 'Catering order: low', pre: '$', v: 300, step: 25, group: 'catering' },
+    ordHi: { label: 'Catering order: high', pre: '$', v: 600, step: 25, group: 'catering' },
+    freq:  { label: 'Catering orders per customer a year', post: '×', v: 2, step: 1, group: 'catering' },
+    now:   { label: 'Catering orders you get now, a month', pre: '', v: 0, step: 1, group: 'catering' },
+    ctc:   { label: 'Cost to close one catering customer', pre: '$', v: 25, step: 5, group: 'cost' },
+    fee:   { label: 'Naber Studio retainer, a month', pre: '$', v: 99, step: 1, group: 'cost' },
   };
+  const GROUPS = { buffet: 'Your buffet', catering: 'Your catering', cost: 'Cost to close' };
+
+  // the questions, in order
+  const QS = [
+    { ids: ['g'], title: 'How many guests eat at your buffet in a month?', help: 'Count every plate. Guests a day × days open × 4 works. 100 a day, 7 days a week ≈ 3,000.' },
+    { ids: ['spend'], title: 'What does one guest spend per visit?', help: 'The buffet price plus drinks, per person.' },
+    { ids: ['visits'], title: 'How many times a year does a regular come back?', help: 'Including the first visit. This tells us how many different people you actually feed.' },
+    { ids: ['reach'], title: 'How many guests would give you their number?', help: 'For a free drink or a birthday deal: a QR code on the table or the receipt. That list is who we offer catering to.' },
+    { ids: ['convLo', 'convHi'], range: true, title: 'Out of those, how many would order catering in a year?', help: 'Office lunches, birthdays, church events, family parties. 1 in 100 is 1%; 1 in 33 is 3%.' },
+    { ids: ['ordLo', 'ordHi'], range: true, title: 'What’s a typical catering order worth?', help: 'Your smallest common order to your bigger ones: party trays up to events.' },
+    { ids: ['freq'], title: 'How many times a year does a catering customer order?', help: 'An office that orders lunch every quarter is 4.' },
+    { ids: ['now'], title: 'How many catering orders do you get now, a month?', help: 'Without anyone asking for them. We only count what you’re missing on top of these.' },
+    { ids: ['ctc'], title: 'What does it cost to close one catering customer?', help: 'Texts, a follow-up ad, a free sample tray: what you’d spend to win one. Food cost isn’t counted.' },
+    { ids: ['fee'], title: 'And the monthly retainer for the system?', help: 'Naber Studio sets up the list, the texts and the catering page, and keeps it running.' },
+  ];
+
   const usd = (n) => (n < 0 ? '−$' : '$') + Math.round(Math.abs(n)).toLocaleString('en-US');
   const num = (n) => (Math.abs(n) >= 10 ? Math.round(n) : +n.toFixed(1)).toLocaleString('en-US');
-  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  const range = (a, b) => (Math.round(a) === Math.round(b) ? usd(a) : `${usd(a)} – ${usd(b)}`);
+  const rangeN = (a, b) => (num(a) === num(b) ? num(a) : `${num(a)} – ${num(b)}`);
 
-  function fieldsFor(key) {
-    const m = MODELS[key];
-    const main = [{ ...SPEND, v: m.spend }, ...m.fields, FEE];
-    const more = [...m.more, { ...MARGIN, label: m.margin, hint: 'leave at 100% to see revenue', where: 'Your books: gross margin' }];
-    return { main, more, all: [...main, ...more] };
-  }
-
-  function fieldHTML(f, uid) {
-    return `<div class="field">
-      <label for="${uid}c-${f.id}">${f.label} <small>${f.hint}</small></label>
-      <div class="row">
-        <input type="range" id="${uid}r-${f.id}" min="${f.log ? 0 : f.min}" max="${f.log ? 1000 : f.max}" step="${f.log ? 1 : f.step}" aria-label="${f.label}" tabindex="-1">
-        <span class="money" ${f.pre ? `data-pre="${f.pre}"` : `data-post="${f.post}"`}><input id="${uid}c-${f.id}" type="number" inputmode="decimal" min="0" step="${f.step}"></span>
-      </div>
-      ${f.where ? `<p class="where">Where to find it: ${f.where}</p>` : ''}</div>`;
+  function inputHTML(id, uid, big) {
+    const f = F[id];
+    return `<span class="money${big ? ' big' : ''}" ${f.pre ? `data-pre="${f.pre}"` : ''} ${f.post ? `data-post="${f.post}"` : ''}><input id="${uid}${id}" data-id="${id}" type="number" inputmode="decimal" min="0" ${f.max ? `max="${f.max}"` : ''} step="${f.step}" aria-label="${f.label}"></span>`;
   }
 
   let uidN = 0;
@@ -88,175 +49,161 @@
     const uid = 'k' + ++uidN + '-';
     const onPage = box.hasAttribute('data-url');    // the /calculator/ page keeps the answers in its URL
     const q = new URLSearchParams(location.search);
-    const st = { model: null, known: false, count: 'year', val: {} };
+    const val = {};
+    for (const [id, f] of Object.entries(F)) { const p = parseFloat(q.get(id)); val[id] = onPage && Number.isFinite(p) && p >= 0 ? p : f.v; }
+    let qi = 0;
 
     box.innerHTML = `
-      <ol class="calc-steps" aria-label="Steps"><li data-s="1"><span>01</span> Your business</li><li data-s="2"><span>02</span> Your numbers</li><li data-s="3"><span>03</span> The math</li></ol>
-      <div class="calc-q" data-q="1">
-        <p class="q-title">What kind of business is it?</p>
-        <div class="q-cards five">${Object.entries(MODELS).map(([k, m]) => `<button type="button" class="glass q-card" data-model="${k}"><b>${m.name}</b><span>${m.eg}</span></button>`).join('')}</div>
-      </div>
-      <div class="calc-q" data-q="2" hidden>
-        <p class="q-title">Do you know your numbers?</p>
-        <div class="q-cards two">
-          <button type="button" class="glass q-card" data-known="1"><b>Yes, I have them</b><span>From Ads Manager and your register, booking app or store. I’ll show you where each one lives.</span></button>
-          <button type="button" class="glass q-card" data-known="0"><b>Not yet</b><span>Start with sample numbers for this kind of business, then change anything you know.</span></button>
+      <div class="glass wiz" data-o="wiz">
+        <div class="wiz-top"><span data-o="qn"></span><i class="wiz-bar"><b data-o="bar"></b></i></div>
+        <label class="q-title" data-o="qt"></label>
+        <p class="wiz-help" data-o="qh"></p>
+        <div class="wiz-in" data-o="qi"></div>
+        <div class="wiz-acts">
+          <button type="button" class="q-back" data-a="back">← Back</button>
+          <button type="button" class="btn btn-primary" data-a="next">Next →</button>
+          <button type="button" class="q-back" data-a="skip">Not sure: use a typical number</button>
         </div>
-        <button type="button" class="q-back" data-back="1">← Change business type</button>
       </div>
       <div class="calc-run" hidden>
-        <div class="calc-chips"><span data-o="model"></span><button type="button" class="q-back" data-back="1">Change business</button><button type="button" class="q-back" data-back="2">Change numbers</button></div>
+        <div class="calc-chips"><span>Buffet guests → catering orders</span><button type="button" class="q-back" data-a="restart">Answer the questions again</button></div>
         <div class="calc">
-          <form class="glass calc-in" novalidate onsubmit="return false"></form>
+          <form class="glass calc-in sheet" novalidate onsubmit="return false">
+            ${Object.entries(GROUPS).map(([g, name]) => `<fieldset><legend>${name}</legend>${Object.entries(F).filter(([, f]) => f.group === g).map(([id, f]) => `<label class="sheet-row" for="${uid}${id}"><span>${f.label}</span>${inputHTML(id, uid)}</label>`).join('')}</fieldset>`).join('')}
+          </form>
           <div class="glass calc-out" id="${uid}res" aria-live="polite">
-            <div class="seg" role="group" aria-label="What to count">
-              <button type="button" data-count="visit">First visit only</button><button type="button" data-count="year">Over a year</button>
-            </div>
-            <p class="miss-k" data-o="k"></p>
-            <p class="miss"><span data-o="miss">$0</span><small>/mo</small></p>
+            <p class="miss-k">Catering revenue you’re missing</p>
+            <p class="miss range"><span data-o="miss"></span><small>/mo</small></p>
             <p class="miss-year" data-o="year"></p>
-            <div class="flow">
-              <div><span data-o="cust-k">New customers / mo</span><b data-o="cust">0</b></div>
-              <div><span data-o="rev-k">Revenue / mo</span><b data-o="rev">$0</b></div>
-              <div><span>Return on ads</span><b data-o="roas">0×</b></div>
+            <div class="ladder" aria-label="What one guest is worth">
+              <div><span>One visit</span><b data-o="l1"></b></div>
+              <i aria-hidden="true">→</i>
+              <div><span>A regular, a year</span><b data-o="l2"></b></div>
+              <i aria-hidden="true">→</i>
+              <div class="hot"><span>A catering customer, a year</span><b data-o="l3"></b><em data-o="lx"></em></div>
             </div>
-            <div class="bars">
-              <div class="bar-row"><span data-o="bar-k">Revenue</span><i data-o="b-rev" style="--c:var(--t)"></i><b data-o="t-rev"></b></div>
-              <div class="bar-row"><span>Ad spend</span><i data-o="b-ads" style="--c:var(--o)"></i><b data-o="t-ads"></b></div>
-              <div class="bar-row"><span>Retainer</span><i data-o="b-fee" style="--c:var(--y)"></i><b data-o="t-fee"></b></div>
+            <div class="flow">
+              <div><span>Guests you could reach / yr</span><b data-o="reach"></b></div>
+              <div><span>New catering customers / yr</span><b data-o="cust"></b></div>
+              <div><span>Catering orders / yr</span><b data-o="ords"></b></div>
             </div>
             <p class="calc-line" data-o="line"></p>
             <div class="calc-acts">
-              <a class="btn btn-primary" data-o="mail" href="mailto:hello@naberstudio.com">Get this for my business</a>
-              <button class="btn btn-ghost" type="button" data-o="copy">Copy link to these numbers</button>
+              <a class="btn btn-primary" data-o="mail" href="mailto:hello@naberstudio.com">Get this for my restaurant</a>
+              <button class="btn btn-ghost" type="button" data-a="copy">Copy link to these numbers</button>
             </div>
-            <p class="calc-note">An estimate from the numbers you enter, not a guarantee. Real ad costs change with your offer, audience and season.</p>
+            <p class="calc-note">A range from the numbers you enter, not a guarantee. Revenue is before food cost; the only costs taken out are closing each catering customer and the retainer.</p>
           </div>
         </div>
-        <a class="calc-peek" href="#${uid}res" data-o="peek" hidden><span data-o="peek-k">Missing out</span><b data-o="peek-v">$0/mo</b><i>See the math ↓</i></a>
+        <a class="calc-peek" href="#${uid}res" data-o="peek" hidden><span>Missing</span><b data-o="peek-v"></b><i>See the math ↓</i></a>
       </div>`;
     const $ = (s) => box.querySelector(s), out = (k) => box.querySelector(`[data-o="${k}"]`);
-    const form = $('.calc-in');
-    const focusFirst = (sel) => { const el = $(sel); if (el) el.focus({ preventScroll: true }); };
+    const sheet = $('.sheet');
 
-    function step(n) {
-      box.querySelectorAll('.calc-q').forEach((el) => { el.hidden = +el.dataset.q !== n; });
-      $('.calc-run').hidden = n !== 3;
-      box.querySelectorAll('.calc-steps li').forEach((li) => { li.classList.toggle('on', +li.dataset.s === n); li.classList.toggle('done', +li.dataset.s < n); });
-      box.dataset.step = n;
-      if (box.getBoundingClientRect().top < 0) box.scrollIntoView({ block: 'start' });
-      peekCheck();
+    /* ---- the questions ---- */
+    function ask(i) {
+      qi = Math.max(0, Math.min(i, QS.length - 1));
+      const Q = QS[qi];
+      out('qn').textContent = `Question ${qi + 1} of ${QS.length}`;
+      out('bar').style.width = ((qi + 1) / QS.length) * 100 + '%';
+      out('qt').textContent = Q.title; out('qt').htmlFor = `${uid}q-${Q.ids[0]}`;
+      out('qh').textContent = Q.help;
+      out('qi').innerHTML = Q.range
+        ? `${inputHTML(Q.ids[0], uid + 'q-', true)}<span class="wiz-to">to</span>${inputHTML(Q.ids[1], uid + 'q-', true)}`
+        : inputHTML(Q.ids[0], uid + 'q-', true);
+      out('qi').querySelectorAll('input').forEach((n) => { n.value = val[n.dataset.id]; });
+      $('[data-a="back"]').style.visibility = qi ? 'visible' : 'hidden';
+      $('[data-a="next"]').textContent = qi === QS.length - 1 ? 'Show me the money →' : 'Next →';
+      const first = out('qi').querySelector('input');
+      if (box.dataset.started) { first.focus({ preventScroll: true }); first.select(); }
+      out('wiz').classList.remove('pop'); void out('wiz').offsetWidth; out('wiz').classList.add('pop');
     }
-
-    function build(fromUrl) {
-      const m = MODELS[st.model], F = fieldsFor(st.model);
-      box.dataset.model = st.model;
-      out('model').textContent = `${m.name} · ${st.known ? 'your numbers' : 'sample numbers, change anything'}`;
-      form.innerHTML = F.main.map((f) => fieldHTML(f, uid)).join('') +
-        `<details class="calc-more"${st.known ? ' open' : ''}><summary>Fine-tune</summary>${F.more.map((f) => fieldHTML(f, uid)).join('')}</details>`;
-      form.classList.toggle('known', st.known);    // "where to find it" hints show for people entering their own numbers
-      st.val = {};
-      for (const f of F.all) {
-        const p = fromUrl ? parseFloat(q.get(f.id)) : NaN;
-        st.val[f.id] = Number.isFinite(p) && p >= 0 ? p : f.v;
-        wire(f);
-      }
-      if (fromUrl && F.more.some((f) => st.val[f.id] !== f.v)) $('.calc-more').open = true;
-      out('cust-k').textContent = `New ${m.many} / mo`;
-      $('[data-count="visit"]').textContent = `First ${m.first} only`;
+    function take(useTypical) {
+      out('qi').querySelectorAll('input').forEach((n) => {
+        const v = parseFloat(n.value), f = F[n.dataset.id];
+        val[n.dataset.id] = useTypical || !Number.isFinite(v) || v < 0 ? f.v : f.max ? Math.min(v, f.max) : v;
+      });
+    }
+    function next(useTypical) {
+      box.dataset.started = 1;
+      take(useTypical);
+      if (qi < QS.length - 1) ask(qi + 1); else show();
+    }
+    function show() {
+      out('wiz').hidden = true; $('.calc-run').hidden = false;
+      sheet.querySelectorAll('input').forEach((n) => { n.value = val[n.dataset.id]; });
       calc();
+      if (box.getBoundingClientRect().top < 0) box.scrollIntoView({ block: 'start' });
     }
 
-    function wire(f) {
-      const n = box.querySelector(`#${uid}c-${f.id}`), r = box.querySelector(`#${uid}r-${f.id}`);
-      // money sliders move on a log scale, so $8 and $800 both get room; typed values can go past the ends
-      const toR = (v) => { v = Math.min(Math.max(v, f.min), f.max); return f.log ? Math.round(1000 * Math.log(v / f.min) / Math.log(f.max / f.min)) : v; };
-      const fromR = (x) => { if (!f.log) return x; const v = f.min * Math.pow(f.max / f.min, x / 1000); return Math.round(v / f.step) * f.step; };
-      const paint = () => r.style.setProperty('--p', ((r.value - r.min) / (r.max - r.min)) * 100 + '%');
-      const sync = (from) => {
-        let v = parseFloat(from.value);
-        if (!Number.isFinite(v) || v < 0) return;
-        if (from === r) { v = fromR(v); n.value = v; } else r.value = toR(v);
-        st.val[f.id] = f.post === '%' ? Math.min(v, 100) : v;
-        paint(); calc();
-      };
-      n.value = st.val[f.id]; r.value = toR(st.val[f.id]); paint();
-      n.addEventListener('input', () => sync(n));
-      r.addEventListener('input', () => sync(r));
-      n.addEventListener('blur', () => { if (n.value === '' || +n.value < 0) n.value = st.val[f.id]; });
-    }
-
+    /* ---- the math ---- */
     function calc() {
-      const m = MODELS[st.model], v = st.val;
-      const party = v.party ?? 1, close = v.close ?? 100, repeat = st.count === 'year' ? (v.repeat ?? 1) : 1, margin = v.margin ?? 100;
-      const results = v.cpa > 0 ? v.spend / v.cpa : 0;               // what the ads pay for: guests, bookings, leads, purchases
-      const won = results * (close / 100);                            // the ones who actually buy
-      const rev = won * v.aov * party * repeat;
-      const kept = rev * (margin / 100);
-      const cost = v.spend + v.fee;
-      const net = kept - cost;
-      const roas = v.spend > 0 ? rev / v.spend : 0;
-      const breakEven = cost > 0 ? v.cpa * (kept / cost) : 0;         // highest cost per result that still pays for itself
-      const loss = net < 0, profit = margin < 100;
-      const span = st.count === 'year' ? 'over their first year' : `on their first ${m.first}`;
-      const shown = profit ? kept : rev;
-      box.querySelectorAll('[data-count]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.count === st.count)));
-      $('.calc-out').classList.toggle('loss', loss);
-      out('k').textContent = loss ? 'At these numbers you’d lose' : 'Money you’re missing out on';
-      out('miss').textContent = usd(net);
-      out('peek-k').textContent = loss ? 'You’d lose' : 'Missing out';
-      out('peek-v').textContent = usd(net) + '/mo';
-      out('peek').classList.toggle('loss', loss);
-      out('year').innerHTML = loss
-        ? `The ads cost more than they bring in. ${cap(m.many)} can cost at most <b>${usd(breakEven)}</b> each to break even.`
-        : st.count === 'year'
-          ? `Every month of ads wins ${m.many} worth that much over their first year, after ad spend and the retainer${profit ? ' and your costs' : ''}. Twelve months: <b>${usd(net * 12)}</b>.`
-          : `That’s <b>${usd(net * 12)}</b> a year left on the table from first ${m.first}s alone, after ad spend and the retainer${profit ? ' and your costs' : ''}.`;
-      out('cust').textContent = num(won);
-      out('rev-k').textContent = profit ? 'You keep / mo' : 'Revenue / mo';
-      out('rev').textContent = usd(shown);
-      out('roas').textContent = num(roas) + '×';
-      out('bar-k').textContent = profit ? 'You keep' : 'Revenue';
-      const top = Math.max(shown, v.spend, v.fee, 1);
-      out('b-rev').style.setProperty('--w', (shown / top) * 100 + '%'); out('t-rev').textContent = usd(shown);
-      out('b-ads').style.setProperty('--w', (v.spend / top) * 100 + '%'); out('t-ads').textContent = usd(v.spend);
-      out('b-fee').style.setProperty('--w', (v.fee / top) * 100 + '%'); out('t-fee').textContent = usd(v.fee);
-      const who = party > 1 ? `${num(won)} new ${m.many} a month (${num(won * party)} people through the door)` : `${num(won)} new ${m.many} a month`;
-      out('line').innerHTML = `The ads bring in <b>${who}</b>, worth <b>${usd(rev)}</b> ${span}.` +
-        (cost > 0 && !loss ? ` You stay profitable while one costs under <b>${usd(breakEven)}</b>.` : '');
+      const v = val;
+      const [cLo, cHi] = [Math.min(v.convLo, v.convHi), Math.max(v.convLo, v.convHi)];
+      const [oLo, oHi] = [Math.min(v.ordLo, v.ordHi), Math.max(v.ordLo, v.ordHi)];
+      const people = v.visits > 0 ? (v.g * 12) / v.visits : 0;       // different people fed in a year
+      const reach = people * (v.reach / 100);                         // the ones on the list
+      const scen = (conv, ord) => {
+        const cust = reach * (conv / 100);
+        const ords = cust * v.freq;
+        const rev = ords * ord;
+        const current = v.now * 12 * ord;
+        const missing = Math.max(0, rev - current);
+        const cost = cust * v.ctc + v.fee * 12;
+        return { cust, ords, missing, net: missing - cost };
+      };
+      const lo = scen(cLo, oLo), hi = scen(cHi, oHi);
+      out('miss').textContent = range(lo.missing / 12, hi.missing / 12);
+      out('peek-v').textContent = range(lo.missing / 12, hi.missing / 12) + '/mo';
+      out('year').innerHTML = `That’s <b>${range(lo.missing, hi.missing)}</b> a year. After the cost to close them and the retainer: <b>${range(lo.net / 12, hi.net / 12)}</b> a month, <b>${range(lo.net, hi.net)}</b> a year.`;
+      const year = v.spend * v.visits;
+      out('l1').textContent = usd(v.spend);
+      out('l2').textContent = usd(year);
+      out('l3').textContent = range(year + v.freq * oLo, year + v.freq * oHi);
+      out('lx').textContent = year > 0 ? `${num((year + v.freq * oLo) / year)}–${num((year + v.freq * oHi) / year)}× a regular` : '';
+      out('reach').textContent = num(reach);
+      out('cust').textContent = rangeN(lo.cust, hi.cust);
+      out('ords').textContent = rangeN(lo.ords, hi.ords);
+      out('line').innerHTML = `You feed about <b>${num(people)}</b> different people a year. Get <b>${num(v.reach)}%</b> of them on a list, and if <b>${num(cLo)}–${num(cHi)}%</b> order catering <b>${num(v.freq)}×</b> a year at <b>${range(oLo, oHi)}</b>, that’s <b>${rangeN(lo.ords, hi.ords)}</b> catering orders a year${v.now ? `, on top of the <b>${num(v.now * 12)}</b> you already get` : ''}. Right now those guests eat, pay ${usd(v.spend)} and leave.`;
 
-      const qs = new URLSearchParams({ model: st.model, count: st.count, ...Object.fromEntries(Object.entries(v).map(([k, x]) => [k, String(x)])) });
+      const qs = new URLSearchParams(Object.entries(v).map(([k, x]) => [k, String(x)]));
       box.dataset.link = `${location.origin}/calculator/?${qs}`;
-      if (onPage) history.replaceState(null, '', `?${qs}`);
-      const lines = fieldsFor(st.model).all.map((f) => `- ${f.label}: ${f.pre ? usd(v[f.id]) : v[f.id] + (f.post === '%' ? '%' : '')}`).join('\n');
-      const body = `Hi Faris,\n\nI ran my numbers in your calculator (${m.name}):\n\n${lines}\n\nEstimate: ${num(won)} new ${m.many} a month, worth ${usd(rev)} ${span}. ${usd(net)} a month after costs.\n\n${box.dataset.link}\n\nMy business: `;
-      out('mail').href = `mailto:hello@naberstudio.com?subject=${encodeURIComponent('My numbers from the calculator')}&body=${encodeURIComponent(body)}`;
+      if (onPage && !$('.calc-run').hidden) history.replaceState(null, '', `?${qs}`);
+      const lines = Object.entries(F).map(([id, f]) => `- ${f.label}: ${f.pre === '$' ? usd(v[id]) : v[id] + (f.post === '%' ? '%' : f.post || '')}`).join('\n');
+      const body = `Hi Faris,\n\nI ran my buffet numbers in your catering calculator:\n\n${lines}\n\nCatering revenue I'm missing: ${range(lo.missing / 12, hi.missing / 12)} a month (${range(lo.missing, hi.missing)} a year).\n\n${box.dataset.link}\n\nMy restaurant: `;
+      out('mail').href = `mailto:hello@naberstudio.com?subject=${encodeURIComponent('My catering numbers')}&body=${encodeURIComponent(body)}`;
     }
 
-    // on phones the result sits under the inputs: pin a small live readout to the bottom while it's out of view
-    let resVisible = false, inputsVisible = false;
-    function peekCheck() { out('peek').hidden = box.dataset.step !== '3' || resVisible || !inputsVisible; }
-    new IntersectionObserver(([e]) => { resVisible = e.isIntersecting; peekCheck(); }, { threshold: 0.25 }).observe($('.calc-out'));
-    new IntersectionObserver(([e]) => { inputsVisible = e.isIntersecting; peekCheck(); }).observe(form);
-
+    sheet.addEventListener('input', (e) => {
+      const n = e.target, v = parseFloat(n.value), f = F[n.dataset.id];
+      if (!f || !Number.isFinite(v) || v < 0) return;
+      val[n.dataset.id] = f.max ? Math.min(v, f.max) : v;
+      calc();
+    });
+    sheet.addEventListener('focusout', (e) => { const n = e.target; if (n.dataset?.id && (n.value === '' || +n.value < 0)) n.value = val[n.dataset.id]; });
+    out('wiz').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); next(false); } });
     box.addEventListener('click', (e) => {
-      const t = e.target.closest('button');
-      if (!t || !box.contains(t)) return;
-      if (t.dataset.model) { st.model = t.dataset.model; step(2); focusFirst('[data-q="2"] .q-card'); }
-      else if (t.dataset.known) { st.known = t.dataset.known === '1'; build(false); step(3); if (st.known) focusFirst('.calc-in input[type=number]'); }
-      else if (t.dataset.back) { step(+t.dataset.back); focusFirst(`[data-q="${t.dataset.back}"] .q-card`); }
-      else if (t.dataset.count) { st.count = t.dataset.count; calc(); }
-      else if (t.dataset.o === 'copy') {
+      const t = e.target.closest('[data-a]');
+      if (!t) return;
+      const a = t.dataset.a;
+      if (a === 'next') next(false);
+      else if (a === 'skip') next(true);
+      else if (a === 'back') { take(false); ask(qi - 1); }
+      else if (a === 'restart') { $('.calc-run').hidden = true; out('wiz').hidden = false; ask(0); out('wiz').scrollIntoView({ block: 'center' }); }
+      else if (a === 'copy') {
         navigator.clipboard.writeText(box.dataset.link).then(() => { t.textContent = 'Link copied ✓'; }, () => prompt('Copy this link:', box.dataset.link));
         setTimeout(() => { t.textContent = 'Copy link to these numbers'; }, 2200);
       }
     });
 
-    // a shared link opens straight on that business's calculator
-    if (onPage && MODELS[q.get('model')]) {
-      st.model = q.get('model'); st.count = q.get('count') === 'visit' ? 'visit' : 'year'; st.known = true;
-      build(true); step(3);
-    } else step(1);
+    // on phones the result sits under the numbers: pin a small live readout while it's out of view
+    let resVisible = false, sheetVisible = false;
+    const peekCheck = () => { out('peek').hidden = $('.calc-run').hidden || resVisible || !sheetVisible; };
+    new IntersectionObserver(([e]) => { resVisible = e.isIntersecting; peekCheck(); }, { threshold: 0.25 }).observe($('.calc-out'));
+    new IntersectionObserver(([e]) => { sheetVisible = e.isIntersecting; peekCheck(); }).observe(sheet);
+
+    // a shared link (with numbers) opens straight on the result
+    if (onPage && [...q.keys()].some((k) => k in F)) show(); else ask(0);
   }
 
   document.querySelectorAll('[data-calc]').forEach(mount);
