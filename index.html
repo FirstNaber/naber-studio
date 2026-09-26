@@ -3,150 +3,164 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Naber Studio — Websites that sell</title>
-<meta name="description" content="Naber Studio designs and builds websites and online stores for local businesses. Website and online store from $1,000, monthly care from $99.">
-<meta name="theme-color" content="#eef0f5">
-<meta property="og:title" content="Naber Studio — Websites that sell">
-<meta property="og:description" content="Websites and online stores for local businesses, built to turn visitors into sales.">
+<title>Naber Studio — Watch your website get built</title>
+<meta name="description" content="Type your business name and watch a website concept get built in seconds. Naber Studio designs and builds websites and online stores for local businesses, from $1,495.">
+<meta name="theme-color" content="#f4f2ed">
+<meta property="og:title" content="Naber Studio — Watch your website get built">
+<meta property="og:description" content="Type your business name. Watch your website get built. Websites and online stores for local businesses.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://naberstudio.com/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Naber Studio","url":"https://naberstudio.com/","email":"hello@naberstudio.com","description":"Website design and development for small businesses, plus an optional monthly website care plan.","founder":{"@type":"Person","name":"Faris Naber"},"priceRange":"$$"}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Naber Studio","url":"https://naberstudio.com/","email":"hello@naberstudio.com","description":"Website design and development for small businesses, plus an optional monthly website care plan.","founder":{"@type":"Person","name":"Faris Naber"},"priceRange":"$1,495–$2,995"}
 </script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="top">
+<header class="nav">
   <div class="wrap">
-    <a class="brand" href="./">NABER STUDIO<i aria-hidden="true"></i></a>
-    <p class="promise">Websites and online stores for local businesses, built to sell.</p>
-    <nav class="pills" aria-label="Primary">
-      <a class="pill hide-sm" href="#services">Services</a>
-      <a class="pill hide-sm" href="#pricing">Pricing</a>
-      <a class="pill dark" href="contact/">Let’s talk</a>
+    <a class="brand" href="./">Naber Studio<i aria-hidden="true"></i></a>
+    <nav aria-label="Primary">
+      <a class="hide-sm" href="#try">Try it</a>
+      <a class="hide-sm" href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn-sm" href="contact/">Contact</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
-  <div class="wrap hero">
-    <div class="window" role="img" aria-label="Illustration: a shop website receiving online orders and pickup notifications">
-      <div class="grid-bg"></div>
-      <span class="label mono">Your shop · open 24/7</span>
-      <div class="site" aria-hidden="true">
-        <div class="bar"><b></b><b></b><b></b><span>yourshop.com</span></div>
-        <div class="body">
-          <div class="lead"><i></i><i></i><i></i><em></em></div>
-          <div class="tiles"><div></div><div></div><div></div><div></div></div>
+  <section class="intro">
+    <div class="wrap">
+      <p class="kick mono">Naber Studio · websites for local businesses</p>
+      <h1>Type your business name. <em>Watch your website get built.</em></h1>
+      <form class="gen-form" id="gen-form" aria-label="Build a website concept">
+        <label class="sr" for="gen-name" style="position:absolute;left:-999px">Business name</label>
+        <input id="gen-name" name="name" autocomplete="organization" maxlength="40" placeholder="e.g. Joe’s Barbershop" required>
+        <label class="sr" for="gen-type" style="position:absolute;left:-999px">Type of business</label>
+        <select id="gen-type" name="type">
+          <option value="detect">Detect from name</option>
+          <option value="barber">Barbershop</option><option value="coffee">Coffee shop</option><option value="bakery">Bakery</option>
+          <option value="restaurant">Restaurant</option><option value="boutique">Boutique</option><option value="crystals">Crystal &amp; gift shop</option>
+          <option value="florist">Florist</option><option value="salon">Salon &amp; beauty</option><option value="fitness">Fitness studio</option>
+          <option value="tattoo">Tattoo studio</option><option value="books">Bookshop</option><option value="plants">Plant shop</option>
+          <option value="pets">Pet shop &amp; grooming</option><option value="auto">Auto shop</option><option value="other">Something else</option>
+        </select>
+        <button type="submit">Build my site →</button>
+      </form>
+      <p class="gen-note"><span id="gen-detect" aria-live="polite"></span><span>Free and instant. Built in your browser; nothing is saved or sent.</span></p>
+    </div>
+  </section>
+
+  <section class="bench" id="try" aria-label="Your website, being built">
+    <div class="wrap">
+      <aside class="panel">
+        <div class="hd"><span class="mono">Build log</span><span id="gen-time" aria-live="off">0.0s</span></div>
+        <ol id="gen-log" aria-live="polite"></ol>
+        <div class="acts" id="gen-actions" hidden>
+          <button id="gen-shuffle" type="button">Try another style <span aria-hidden="true">↻</span></button>
+          <div class="dev" role="group" aria-label="Preview size">
+            <button type="button" data-device="desktop" aria-pressed="true">Desktop</button>
+            <button type="button" data-device="phone" aria-pressed="false">Phone</button>
+          </div>
+          <button id="gen-copy" type="button">Copy a link to this <span aria-hidden="true">⧉</span></button>
+          <a id="gen-mail" class="primary" href="mailto:hello@naberstudio.com">I want the real one <span aria-hidden="true">→</span></a>
         </div>
-      </div>
-      <div class="toasts" aria-hidden="true">
-        <div class="toast"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span><p>New online order<small>Paid by card</small></p><time>now</time></div>
-        <div class="toast"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><p>Order ready for pickup<small>Customer notified</small></p><time>2m</time></div>
-        <div class="toast"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><p>New enquiry<small>From your contact form</small></p><time>9m</time></div>
-      </div>
-    </div>
-    <div class="marks" aria-hidden="true"><span>+</span><span>+</span><span class="mono">Scroll to explore</span><span>+</span><span>+</span></div>
-  </div>
-
-  <section class="statement">
-    <div class="wrap">
-      <h1 data-rv>Websites<br>that <span class="blue">sell.</span></h1>
-      <p data-rv>I design and build websites and online stores for local businesses, then help you turn visitors into customers. One person, start to finish.</p>
-      <div class="cta-row" data-rv>
-        <a class="btn primary" href="contact/">Start with a 15-minute call <span class="arr" aria-hidden="true">→</span></a>
-        <a class="btn" href="#pricing">See pricing</a>
+        <p class="honest">An instant concept with sample content. Your real site is designed by hand around your photos, prices and story.</p>
+      </aside>
+      <div class="frame" id="pv-frame" data-device="desktop">
+        <div class="bar" aria-hidden="true"><b></b><b></b><b></b><span id="pv-url">yourshop.com</span></div>
+        <div class="viewport"><div class="pv" id="pv"></div></div>
       </div>
     </div>
   </section>
 
-  <section class="block" id="services">
+  <section class="sec" id="real">
     <div class="wrap">
-      <div class="head">
-        <div><span class="kick mono">01 · Services</span><h2 data-rv>Everything your shop needs to sell online.</h2></div>
-        <p data-rv>Built around how you already sell, in the shop, on social, on marketplaces, not around a template.</p>
+      <div class="sec-head">
+        <div><span class="kicker mono">The real thing</span><h2 data-rv>That took seconds.<br>Imagine what a week does.</h2></div>
+        <p data-rv>The concept above is a sketch. A Naber Studio site is designed by hand for your business, and built to turn visitors into customers.</p>
       </div>
-      <div class="cards">
-        <article class="card" data-rv><span class="no mono">A</span><h3>Website design &amp; build</h3><p>A fast, mobile-first site in your brand, with your real photos, reviews, map and directions, set up to be found on Google.</p></article>
-        <article class="card" data-rv><span class="no mono">B</span><h3>Online store</h3><p>Checkout, shipping and free in-store pickup, with a simple phone tool to add a piece, set a price and mark it sold.</p></article>
-        <article class="card" data-rv><span class="no mono">C</span><h3>Monthly care</h3><p>I keep the site running and secure, fix what breaks and make small updates, so you can stay focused on your customers.</p></article>
+      <div class="real">
+        <article data-rv><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 16-5-5-8 8"/></svg></span><b>Your real photos and story</b><p>Designed around your shop, your products and what your customers already love about you.</p></article>
+        <article data-rv><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span><b>A store that works like your shop</b><p>Checkout, shipping and free in-store pickup, with a phone tool to add a piece, set a price and mark it sold.</p></article>
+        <article data-rv><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><b>Found by people nearby</b><p>Reviews, map, hours and directions, set up so people searching near you on Google can find you.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="block" id="process">
+  <section class="sec" id="how">
     <div class="wrap">
-      <div class="head">
-        <div><span class="kick mono">02 · How it works</span><h2 data-rv>Four steps. No surprises.</h2></div>
-        <p data-rv>You always know what you’re getting and what it costs before any work starts.</p>
+      <div class="sec-head">
+        <div><span class="kicker mono">How it works</span><h2 data-rv>Four steps. One clear price.</h2></div>
+        <p data-rv>You always know what you’re getting, and what it costs, before any work starts.</p>
       </div>
       <ol class="steps" data-rv>
-        <li><span class="mono muted">Step 1</span><b>A short call</b><p>Fifteen minutes on how you sell today and where your customers come from.</p></li>
-        <li><span class="mono muted">Step 2</span><b>Your proposal</b><p>Design directions built for your business, and one clear price.</p></li>
-        <li><span class="mono muted">Step 3</span><b>The build</b><p>Two rounds of changes included. You see progress the whole way.</p></li>
-        <li><span class="mono muted">Step 4</span><b>Launch &amp; care</b><p>You go live with a walkthrough of your tools, and I stay on hand every month.</p></li>
+        <li><b>A short call</b><p>Fifteen minutes on how you sell today and where your customers come from.</p></li>
+        <li><b>Your proposal</b><p>Design directions built for your business, and one clear price.</p></li>
+        <li><b>The build</b><p>Two rounds of changes included. You see progress the whole way.</p></li>
+        <li><b>Launch &amp; care</b><p>You go live with a walkthrough of your tools, and I stay on hand every month.</p></li>
       </ol>
     </div>
   </section>
 
-  <section class="block" id="pricing">
+  <section class="sec" id="pricing">
     <div class="wrap">
-      <div class="head">
-        <div><span class="kick mono">03 · Pricing</span><h2 data-rv>Straightforward pricing.</h2></div>
-        <p data-rv>Most local shops start with the website and store. Extras are quoted after our call, once I know what will actually help.</p>
+      <div class="sec-head">
+        <div><span class="kicker mono">Pricing</span><h2 data-rv>Two ways to start.</h2></div>
+        <p data-rv>Pick the website you need today. You can add an online store later, and monthly care keeps it all running.</p>
       </div>
       <div class="prices">
-        <article class="price main" data-rv>
+        <article class="price" data-rv>
+          <h3>Standard website</h3>
+          <p class="amt">$1,495 <small class="muted">one-time</small></p>
+          <p class="muted">For businesses that don’t sell online</p>
+          <ul><li>Custom design on your real photos</li><li>Services, menu or product showcase</li><li>Reviews, map, hours and directions</li><li>Contact and booking links</li><li>Google basics, fast on every phone</li><li>Two rounds of changes</li></ul>
+          <a class="go" href="contact/">Start a standard site <span aria-hidden="true">→</span></a>
+        </article>
+        <article class="price best" data-rv>
+          <span class="flag">Most popular</span>
           <h3>Website + online store</h3>
-          <p class="amt">$1,000 <small class="muted">one-time</small></p>
-          <p class="muted">Starting price for a local shop</p>
-          <ul><li>Custom design on your real photos</li><li>Online store, checkout and in-store pickup</li><li>Phone tool to add, price and mark pieces sold</li><li>Reviews, map, directions and Google basics</li><li>Your first products loaded, plus training</li></ul>
-          <a class="btn primary" href="contact/">Get started <span class="arr" aria-hidden="true">→</span></a>
+          <p class="amt">$2,995 <small class="muted">one-time</small></p>
+          <p class="muted">Everything in Standard, plus selling online</p>
+          <ul><li>Online store and secure checkout</li><li>Shipping and free in-store pickup</li><li>Phone tool to add, price and mark pieces sold</li><li>Your first products loaded for you</li><li>One training session</li></ul>
+          <a class="go" href="contact/">Start a site with a store <span aria-hidden="true">→</span></a>
         </article>
         <article class="price" data-rv>
           <h3>Monthly care</h3>
           <p class="amt">$99 <small class="muted">/ month</small></p>
-          <p class="muted">12-month minimum, then month to month</p>
+          <p class="muted">For either website, from launch day</p>
           <ul><li>Hosting kept running and secure</li><li>Fixes when something breaks</li><li>Small updates, about an hour a month</li><li>Help whenever you need it</li></ul>
-          <a class="btn" href="contact/">Ask a question</a>
-        </article>
-        <article class="price" data-rv>
-          <h3>Extras</h3>
-          <p class="amt" style="font-size:clamp(2rem,3.4vw,2.8rem)">Quoted after our call</p>
-          <ul><li>Connect your selling channels to one inventory</li><li>Cinematic scroll-film homepage opening</li><li>Wholesale and bulk enquiry pages</li></ul>
-          <a class="btn" href="contact/">Talk it through</a>
+          <a class="go" href="contact/">Ask about care <span aria-hidden="true">→</span></a>
         </article>
       </div>
-      <p class="fine">Store platform and card fees (for example Shopify and card processing) are paid directly by you, so you always own your store. Payments to Naber Studio are processed securely by Stripe. See <a href="terms/">terms</a> and <a href="terms/#refunds">refunds</a>.</p>
+      <p class="fine">Monthly care has a 12-month minimum. Extras like connecting your selling channels or a cinematic homepage are quoted after our call. Store platform and card fees are paid directly by you, so you always own your store. Payments to Naber Studio are processed securely by Stripe. See <a href="terms/">terms</a> and <a href="terms/#refunds">refunds</a>.</p>
     </div>
   </section>
 
-  <section class="block" id="about">
+  <section class="sec" id="about">
     <div class="wrap about">
-      <div>
-        <span class="kick mono">04 · About</span>
-        <p class="big" data-rv>I’m Faris Naber. Before building websites, I built <em>sales systems</em> on three sales floors.</p>
-      </div>
+      <blockquote data-rv>I spent years on sales floors building systems that sell. <em>Now I build the websites that do it for you.</em></blockquote>
       <div data-rv>
-        <p>That’s the lens I bring to every site: who’s visiting, what they need to see, and what makes them buy. The design matters, and so does what it does for your revenue.</p>
+        <p>I’m Faris Naber. Every site I build starts with the same questions I asked on the sales floor: who’s walking in, what do they need to see, and what makes them buy?</p>
         <p>Naber Studio is just me, so you work directly with the person designing, building and supporting your site.</p>
-        <a class="linkcard" href="https://firstnaber.github.io/faris-naber-portfolio/" target="_blank" rel="noopener noreferrer" style="margin-top:28px">
-          <span><span class="mono muted">The sales story</span><b>Faris Naber · portfolio</b></span><span class="arr" aria-hidden="true">↗</span>
-        </a>
+        <a class="link" href="https://firstnaber.github.io/faris-naber-portfolio/" target="_blank" rel="noopener noreferrer">Read the sales story <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
 
   <section class="closer">
     <div class="wrap">
-      <h2 data-rv>Let’s make your<br>website sell.</h2>
-      <a class="mail" href="mailto:hello@naberstudio.com" data-rv>hello@naberstudio.com</a>
+      <h2 data-rv>Let’s make yours real.</h2>
+      <div class="row" data-rv>
+        <a class="pill fill" href="contact/">Start with a 15-minute call →</a>
+        <a class="pill" href="mailto:hello@naberstudio.com">hello@naberstudio.com</a>
+      </div>
     </div>
   </section>
 </main>
@@ -158,5 +172,6 @@
   </div>
 </footer>
 <script src="main.js" defer></script>
+<script src="gen.js" defer></script>
 </body>
 </html>
