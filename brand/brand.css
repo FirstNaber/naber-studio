@@ -331,3 +331,50 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
   .hero-sub{text-shadow:0 2px 12px rgba(0,0,0,.8)}
   .field label{flex-direction:column;align-items:flex-start;gap:0}
 }
+
+/* calculator: questions first, then a calculator built for that business model */
+.calc-steps{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;margin-bottom:22px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.calc-steps li{display:flex;align-items:center;gap:8px;transition:color .3s}
+.calc-steps li span{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);font-size:10px;letter-spacing:0;transition:all .3s}
+.calc-steps li.on{color:var(--ink)}
+.calc-steps li.on span{background:var(--o);border-color:var(--o);color:#000}
+.calc-steps li.done{color:var(--dim)}
+.calc-steps li.done span{border-color:var(--t);color:var(--t)}
+.calc-q{animation:qIn .5s var(--ease)}
+.calc-q[hidden],.calc-run[hidden]{display:none}
+.calc-run{animation:qIn .5s var(--ease)}
+@keyframes qIn{from{opacity:0;transform:translateY(14px)}}
+.q-title{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:clamp(34px,4vw,64px);line-height:.95;margin-bottom:22px}
+.q-cards{display:grid;gap:12px}
+.q-cards.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.q-cards.two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:980px}
+.q-card{appearance:none;-webkit-appearance:none;font:inherit;color:inherit;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:12px;padding:24px 22px 26px;border-radius:22px;min-height:170px;position:relative;transition:transform .3s var(--ease),border-color .3s,box-shadow .3s}
+.q-card b{font-family:var(--head);font-weight:800;text-transform:uppercase;font-size:clamp(26px,2.2vw,36px);line-height:.95}
+.q-card span{font-size:12.5px;color:var(--dim);line-height:1.55}
+.q-card::after{content:"→";position:absolute;right:20px;bottom:18px;color:var(--faint);transition:transform .3s,color .3s}
+.q-card:hover,.q-card:focus-visible{transform:translateY(-4px);border-color:rgba(255,90,54,.6);box-shadow:0 0 60px -14px rgba(255,90,54,.35)}
+.q-card:hover::after,.q-card:focus-visible::after{color:var(--o);transform:translateX(4px)}
+.q-back{all:unset;cursor:pointer;margin-top:18px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid transparent}
+.q-back:hover,.q-back:focus-visible{color:var(--o);border-color:var(--o)}
+.calc-chips{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin-bottom:16px}
+.calc-chips span{padding:8px 14px;border-radius:99px;border:1px solid rgba(143,240,238,.35);color:var(--t);font-size:12px}
+.calc-chips .q-back{margin-top:0}
+.where{display:none;margin-top:6px;font-size:11px;color:var(--faint)}
+.calc-in.known .where{display:block}
+.seg{display:inline-grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:99px;border:1px solid var(--line);background:rgba(0,0,0,.3);margin-bottom:24px}
+.seg button{all:unset;cursor:pointer;padding:8px 16px;border-radius:99px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-align:center;transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#000}
+.seg button:focus-visible{outline:2px solid var(--t)}
+@media(max-width:1100px){.q-cards.five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.q-cards.five,.q-cards.two{grid-template-columns:1fr}.q-card{min-height:0;padding:18px 44px 20px 18px}.q-card::after{top:50%;bottom:auto;transform:translateY(-50%)}}
+@media(max-width:640px){.q-card:hover::after,.q-card:focus-visible::after{transform:translate(4px,-50%)}}
+[data-calc]{scroll-margin-top:90px}
+.calc-peek{display:none}
+@media(max-width:1000px){
+  .calc-peek{position:fixed;left:12px;right:12px;bottom:12px;z-index:50;display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:99px;background:rgba(19,19,19,.92);border:1px solid rgba(143,240,238,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 20px 40px -10px rgba(0,0,0,.7);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  .calc-peek[hidden]{display:none}
+  .calc-peek b{font-family:var(--head);font-weight:800;font-size:26px;letter-spacing:0;color:var(--t);line-height:1}
+  .calc-peek.loss b{color:var(--o)}
+  .calc-peek i{font-style:normal;margin-left:auto;color:var(--ink)}
+}
+.calc-peek b{text-transform:none}
