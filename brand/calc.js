@@ -1,39 +1,35 @@
-/* "What are you missing?" — reactivate the phone list → catering.
-   The restaurant already has phone numbers from guests who walk in. This asks for their numbers one question at a time,
-   then shows a range (low to high) of the catering revenue sitting in that list, and what it costs Naber Studio to
-   text the list and win each new catering customer. No food cost. Renders into every [data-calc]. */
+/* "What are you missing?" — buffet guests → catering bookings, through their phone numbers.
+   Guests walk in every month, eat, pay about $20 and leave without knowing the restaurant caters. Some give a phone number;
+   texting that list books catering orders. It asks for the numbers one question at a time, then shows the catering profit
+   being missed as a range: catering revenue minus Naber Studio's cost to get each booking (no food cost).
+   Renders into every [data-calc]. */
 (() => {
-  // every number the calculator needs; `lo`/`hi` pairs are asked as a range ("between __ and __")
+  // every number the calculator needs; `convLo`/`convHi` are asked as a range ("between __ and __")
   const F = {
-    list:  { label: 'Phone numbers on the list', pre: '', v: 2000, step: 50, group: 'list' },
-    spend: { label: 'Spend per guest, per visit', pre: '$', v: 20, step: 1, group: 'list' },
-    visits:{ label: 'Visits per regular a year', post: '×', v: 4, step: 1, group: 'list' },
-    convLo:{ label: 'Who order catering: low', post: '%', v: 1, step: 0.5, max: 100, group: 'catering' },
-    convHi:{ label: 'Who order catering: high', post: '%', v: 3, step: 0.5, max: 100, group: 'catering' },
-    ordLo: { label: 'Catering order: low', pre: '$', v: 300, step: 25, group: 'catering' },
-    ordHi: { label: 'Catering order: high', pre: '$', v: 600, step: 25, group: 'catering' },
-    freq:  { label: 'Catering orders per customer a year', post: '×', v: 2, step: 1, group: 'catering' },
-    sms:   { label: 'Cost per text message', pre: '$', v: 0.02, step: 0.005, group: 'cost' },
-    texts: { label: 'Texts per number a year', post: '×', v: 4, step: 1, group: 'cost' },
-    other: { label: 'Samples & offers, a year', pre: '$', v: 0, step: 25, group: 'cost' },
+    guests:  { label: 'Guests a month', pre: '', v: 1000, step: 50, group: 'buffet' },
+    capture: { label: 'Guests who give their number', post: '%', v: 50, step: 5, max: 100, group: 'buffet' },
+    spend:   { label: 'Spend per guest, per visit', pre: '$', v: 20, step: 1, group: 'buffet' },
+    convLo:  { label: 'Who book catering: low', post: '%', v: 0.25, step: 0.05, max: 100, group: 'catering' },
+    convHi:  { label: 'Who book catering: high', post: '%', v: 1, step: 0.05, max: 100, group: 'catering' },
+    order:   { label: 'Catering order', pre: '$', v: 1500, step: 50, group: 'catering' },
+    cpb:     { label: 'Your cost to get one booking', pre: '$', v: 20, step: 1, group: 'cost' },
+    list:    { label: 'Numbers they already have', pre: '', v: 0, step: 50, group: 'cost' },
   };
-  const GROUPS = { list: 'Their list', catering: 'Catering', cost: 'Your cost to reactivate' };
+  const GROUPS = { buffet: 'The buffet', catering: 'Catering', cost: 'Your side' };
 
   // the questions, in order
   const QS = [
-    { ids: ['list'], title: 'How many phone numbers are on their list?', help: 'Past guests, online orders, loyalty sign-ups, reservations: everyone who has already given the restaurant a number.' },
-    { ids: ['spend'], title: 'What does one guest spend per visit?', help: 'The buffet price plus drinks, per person.' },
-    { ids: ['visits'], title: 'How many times a year does a regular come in?', help: 'This is what one guest is worth today, before catering.' },
-    { ids: ['convLo', 'convHi'], range: true, title: 'What share of the list would order catering in a year?', help: 'Nobody knows this for a list that already exists, so we assume it: give a low and a high guess. 1 in 100 is 1%; 1 in 33 is 3%. The result also shows other rates side by side.' },
-    { ids: ['ordLo', 'ordHi'], range: true, title: 'What’s a typical catering order worth?', help: 'Their smallest common order to their bigger ones: party trays up to events.' },
-    { ids: ['freq'], title: 'How many times a year does a catering customer order?', help: 'An office that orders lunch every quarter is 4.' },
-    { ids: ['sms'], title: 'What does one text message cost you?', help: 'What your texting service charges per message sent.' },
-    { ids: ['texts'], title: 'How many texts does each number get in a year?', help: 'The reactivation text plus the follow-ups and seasonal catering offers.' },
-    { ids: ['other'], title: 'Anything else it costs you to win them, per year?', help: 'Free sample trays, a first-order discount, a tasting. Leave at $0 if it’s just texts.' },
+    { ids: ['guests'], title: 'How many guests eat there in a month?', help: 'Every person through the door. About 35 a day is roughly 1,000 a month.' },
+    { ids: ['capture'], title: 'How many of them give their phone number?', help: 'For a free drink, a birthday deal or a QR code on the table. 500 out of 1,000 guests is 50%.' },
+    { ids: ['spend'], title: 'What does one guest spend per visit?', help: 'The buffet price plus drinks. Right now that’s all they spend, because they don’t know about catering.' },
+    { ids: ['convLo', 'convHi'], range: true, title: 'Of the numbers you text, how many book catering?', help: 'Nobody knows this in advance, so it’s an assumed range: a low and a high guess. 0.25% is 1 in 400; 1% is 1 in 100.' },
+    { ids: ['order'], title: 'What’s a catering order worth?', help: 'The average booking: office lunches, birthdays, church events, family parties.' },
+    { ids: ['cpb'], title: 'What does it cost you to get one catering booking from the list?', help: 'Your texts, follow-ups and offer, per booking. Food cost isn’t counted.' },
+    { ids: ['list'], title: 'How many numbers do they already have?', help: 'From before you start: past guests, online orders, reservations. Texting them is a one-time boost on top. Leave at 0 if none.' },
   ];
 
   const usd = (n) => (n < 0 ? '−$' : '$') + (Math.abs(n) < 10 && n % 1 ? Math.abs(n).toFixed(2) : Math.round(Math.abs(n)).toLocaleString('en-US'));
-  const num = (n) => (Math.abs(n) >= 10 ? Math.round(n) : +n.toFixed(1)).toLocaleString('en-US');
+  const num = (n) => (Math.abs(n) >= 10 ? Math.round(n) : +n.toFixed(2)).toLocaleString('en-US');
   const range = (a, b) => (Math.round(a) === Math.round(b) ? usd(a) : `${usd(a)} – ${usd(b)}`);
   const rangeN = (a, b) => (num(a) === num(b) ? num(a) : `${num(a)} – ${num(b)}`);
 
@@ -64,42 +60,43 @@
         </div>
       </div>
       <div class="calc-run" hidden>
-        <div class="calc-chips"><span>Phone list → catering orders</span><button type="button" class="q-back" data-a="restart">Answer the questions again</button></div>
+        <div class="calc-chips"><span>Buffet guests → catering bookings</span><button type="button" class="q-back" data-a="restart">Answer the questions again</button></div>
         <div class="calc">
           <form class="glass calc-in sheet" novalidate onsubmit="return false">
             ${Object.entries(GROUPS).map(([g, name]) => `<fieldset><legend>${name}</legend>${Object.entries(F).filter(([, f]) => f.group === g).map(([id, f]) => `<label class="sheet-row" for="${uid}${id}"><span>${f.label}</span>${inputHTML(id, uid)}</label>`).join('')}</fieldset>`).join('')}
           </form>
           <div class="glass calc-out" id="${uid}res" aria-live="polite">
-            <p class="miss-k">Catering revenue sitting in their list</p>
+            <p class="miss-k">Catering profit they’re missing</p>
             <p class="miss range"><span data-o="miss"></span><small>/mo</small></p>
             <p class="miss-year" data-o="year"></p>
-            <div class="flow cost">
-              <div><span>Your cost to text the list / yr</span><b data-o="cost"></b></div>
-              <div class="hot"><span>Your cost per new catering customer</span><b data-o="cpc"></b></div>
-              <div><span>Catering revenue per $1 you spend</span><b data-o="roi"></b></div>
+            <div class="pnl">
+              <div><span>Catering revenue</span><b data-o="rev"></b></div>
+              <i aria-hidden="true">−</i>
+              <div><span>Your cost to get the bookings</span><b data-o="cost"></b></div>
+              <i aria-hidden="true">=</i>
+              <div class="hot"><span>Profit</span><b data-o="profit"></b></div>
             </div>
-            <div class="ladder" aria-label="What one guest is worth">
-              <div><span>One visit</span><b data-o="l1"></b></div>
-              <i aria-hidden="true">→</i>
-              <div><span>A regular, a year</span><b data-o="l2"></b></div>
-              <i aria-hidden="true">→</i>
-              <div class="hot"><span>A catering customer, a year</span><b data-o="l3"></b><em data-o="lx"></em></div>
-            </div>
+            <p class="pnl-note">A month, low to high. No food cost.</p>
             <div class="flow">
-              <div><span>Numbers on the list</span><b data-o="reach"></b></div>
-              <div><span>New catering customers / yr</span><b data-o="cust"></b></div>
-              <div><span>Catering orders / yr</span><b data-o="ords"></b></div>
+              <div><span>Numbers collected / mo</span><b data-o="nums"></b></div>
+              <div><span>Catering bookings / mo</span><b data-o="books"></b></div>
+              <div><span>Profit per $1 you spend</span><b data-o="roi"></b></div>
+            </div>
+            <div class="ladder two" aria-label="What one guest could be worth">
+              <div><span>What a guest spends now</span><b data-o="l1"></b><em>eats, pays, leaves</em></div>
+              <i aria-hidden="true">→</i>
+              <div class="hot"><span>If they book catering</span><b data-o="l2"></b><em data-o="lx"></em></div>
             </div>
             <div class="sens">
-              <p class="k">Assumed conversion: if this share of the list orders catering</p>
-              <table><thead><tr><th>Of the list</th><th>Customers / yr</th><th>Catering / mo</th><th>Your cost each</th></tr></thead><tbody data-o="sens"></tbody></table>
+              <p class="k">Assumed booking rate: if this share of the numbers book catering</p>
+              <table><thead><tr><th>Of the numbers</th><th>Bookings / mo</th><th>Profit / mo</th><th>Profit / yr</th></tr></thead><tbody data-o="sens"></tbody></table>
             </div>
             <p class="calc-line" data-o="line"></p>
             <div class="calc-acts">
               <a class="btn btn-primary" data-o="mail" href="mailto:hello@naberstudio.com">Get this for my restaurant</a>
               <button class="btn btn-ghost" type="button" data-a="copy">Copy link to these numbers</button>
             </div>
-            <p class="calc-note">A range from the numbers you enter, not a guarantee. Revenue is before food cost; the only cost counted is what it takes to text the list and win each catering customer.</p>
+            <p class="calc-note">A range from the numbers you enter, not a guarantee. Profit here is catering revenue minus the cost to get each booking; food cost isn’t counted.</p>
           </div>
         </div>
         <a class="calc-peek" href="#${uid}res" data-o="peek" hidden><span>Missing</span><b data-o="peek-v"></b><i>See the math ↓</i></a>
@@ -143,46 +140,43 @@
       if (box.getBoundingClientRect().top < 0) box.scrollIntoView({ block: 'start' });
     }
 
-    /* ---- the math ---- */
+    /* ---- the math: numbers collected → bookings → revenue − your cost = profit ---- */
     function calc() {
       const v = val;
       const [cLo, cHi] = [Math.min(v.convLo, v.convHi), Math.max(v.convLo, v.convHi)];
-      const [oLo, oHi] = [Math.min(v.ordLo, v.ordHi), Math.max(v.ordLo, v.ordHi)];
-      const cost = v.list * v.texts * v.sms + v.other;               // what it costs Naber Studio to reactivate the list for a year
-      const scen = (conv, ord) => {
-        const cust = v.list * (conv / 100);
-        const ords = cust * v.freq;
-        const rev = ords * ord;
-        return { cust, ords, rev, cpc: cust > 0 ? cost / cust : 0, roi: cost > 0 ? rev / cost : 0 };
+      const nums = v.guests * (v.capture / 100);                      // phone numbers collected every month
+      const scen = (conv) => {
+        const books = nums * (conv / 100);
+        const rev = books * v.order;
+        const cost = books * v.cpb;
+        const oneTime = v.list * (conv / 100) * (v.order - v.cpb);    // texting the numbers they already have, once
+        return { books, rev, cost, profit: rev - cost, oneTime };
       };
-      const lo = scen(cLo, oLo), hi = scen(cHi, oHi);
-      out('miss').textContent = range(lo.rev / 12, hi.rev / 12);
-      out('peek-v').textContent = range(lo.rev / 12, hi.rev / 12) + '/mo';
-      out('year').innerHTML = `That’s <b>${range(lo.rev, hi.rev)}</b> a year in catering, sitting in a list of numbers they already have.`;
-      out('cost').textContent = usd(cost);
-      out('cpc').textContent = range(hi.cpc, lo.cpc);
-      out('roi').textContent = cost > 0 ? `$${num(lo.roi)} – $${num(hi.roi)}` : '—';
-      const year = v.spend * v.visits;
+      const lo = scen(cLo), hi = scen(cHi);
+      out('miss').textContent = range(lo.profit, hi.profit);
+      out('peek-v').textContent = range(lo.profit, hi.profit) + '/mo';
+      out('year').innerHTML = `That’s <b>${range(lo.profit * 12, hi.profit * 12)}</b> a year${v.list ? `, plus a one-time <b>${range(lo.oneTime, hi.oneTime)}</b> from the ${num(v.list)} numbers they already have` : ''}.`;
+      out('rev').textContent = range(lo.rev, hi.rev);
+      out('cost').textContent = range(lo.cost, hi.cost);
+      out('profit').textContent = range(lo.profit, hi.profit);
+      out('nums').textContent = num(nums);
+      out('books').textContent = rangeN(lo.books, hi.books);
+      out('roi').textContent = v.cpb > 0 ? usd((v.order - v.cpb) / v.cpb) : '—';
       out('l1').textContent = usd(v.spend);
-      out('l2').textContent = usd(year);
-      out('l3').textContent = range(year + v.freq * oLo, year + v.freq * oHi);
-      out('lx').textContent = year > 0 ? `${num((year + v.freq * oLo) / year)}–${num((year + v.freq * oHi) / year)}× a regular` : '';
-      out('reach').textContent = num(v.list);
-      // the conversion rate is an assumption, so show a spread of them; the rows inside the chosen range are highlighted
-      const oMid = (oLo + oHi) / 2;
-      out('sens').innerHTML = [0.5, 1, 2, 3, 5].map((c) => {
-        const r = scen(c, oMid);
-        return `<tr class="${c >= cLo && c <= cHi ? 'in' : ''}"><td>${num(c)}%</td><td>${num(r.cust)}</td><td>${usd(r.rev / 12)}</td><td>${usd(r.cpc)}</td></tr>`;
+      out('l2').textContent = usd(v.spend + v.order);
+      out('lx').textContent = v.spend > 0 ? `${num(v.order / v.spend)}× a buffet visit, in one order` : '';
+      // the booking rate is an assumption, so show a spread of them; rows inside the chosen range are highlighted
+      out('sens').innerHTML = [...new Set([0.25, 0.5, 0.75, 1, 2, cLo, cHi])].sort((a, b) => a - b).map((c) => {
+        const r = scen(c);
+        return `<tr class="${c >= cLo && c <= cHi ? 'in' : ''}"><td>${num(c)}%</td><td>${num(r.books)}</td><td>${usd(r.profit)}</td><td>${usd(r.profit * 12)}</td></tr>`;
       }).join('');
-      out('cust').textContent = rangeN(lo.cust, hi.cust);
-      out('ords').textContent = rangeN(lo.ords, hi.ords);
-      out('line').innerHTML = `Text <b>${num(v.list)}</b> numbers <b>${num(v.texts)}×</b> a year for <b>${usd(cost)}</b>. If <b>${num(cLo)}–${num(cHi)}%</b> order catering <b>${num(v.freq)}×</b> a year at <b>${range(oLo, oHi)}</b>, that’s <b>${rangeN(lo.cust, hi.cust)}</b> new catering customers at <b>${range(hi.cpc, lo.cpc)}</b> each. Today those guests pay ${usd(v.spend)}, leave, and never hear from them again.`;
+      out('line').innerHTML = `<b>${num(v.guests)}</b> guests a month eat, pay <b>${usd(v.spend)}</b> and leave without knowing they cater. <b>${num(nums)}</b> of them give a number. If <b>${num(cLo)}–${num(cHi)}%</b> of those book a <b>${usd(v.order)}</b> order, that’s <b>${rangeN(lo.books, hi.books)}</b> bookings a month at <b>${usd(v.cpb)}</b> each to get.`;
 
       const qs = new URLSearchParams(Object.entries(v).map(([k, x]) => [k, String(x)]));
       box.dataset.link = `${location.origin}/calculator/?${qs}`;
       if (onPage && !$('.calc-run').hidden) history.replaceState(null, '', `?${qs}`);
-      const lines = Object.entries(F).map(([id, f]) => `- ${f.label}: ${f.pre === '$' ? usd(v[id]) : v[id] + (f.post === '%' ? '%' : f.post || '')}`).join('\n');
-      const body = `Hi Faris,\n\nI ran my numbers in your catering calculator:\n\n${lines}\n\nCatering revenue in my list: ${range(lo.rev / 12, hi.rev / 12)} a month (${range(lo.rev, hi.rev)} a year).\n\n${box.dataset.link}\n\nMy restaurant: `;
+      const lines = Object.entries(F).map(([id, f]) => `- ${f.label}: ${f.pre === '$' ? usd(v[id]) : v[id] + (f.post || '')}`).join('\n');
+      const body = `Hi Faris,\n\nI ran my numbers in your catering calculator:\n\n${lines}\n\nCatering profit I'm missing: ${range(lo.profit, hi.profit)} a month (${range(lo.profit * 12, hi.profit * 12)} a year).\n\n${box.dataset.link}\n\nMy restaurant: `;
       out('mail').href = `mailto:hello@naberstudio.com?subject=${encodeURIComponent('My catering numbers')}&body=${encodeURIComponent(body)}`;
     }
 
