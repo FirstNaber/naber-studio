@@ -14,7 +14,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Ultra&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Store","name":"Crystals World","description":"Crystal and mineral shop in Austin, Texas. Retail and wholesale.","telephone":"+1-737-320-8079","address":{"@type":"PostalAddress","streetAddress":"3202 Guadalupe St Ste C","addressLocality":"Austin","addressRegion":"TX","postalCode":"78705","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"203"},"sameAs":["https://www.instagram.com/crystals_world01/","https://www.tiktok.com/@crystals_world01","https://www.facebook.com/share/19NQg3GGVh/"]}
 </script>
@@ -52,7 +52,8 @@ header.top{position:fixed;left:14px;right:14px;top:14px;z-index:40;display:flex;
 header.top.lit{background:rgba(239,232,220,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink);border-color:var(--rule)}
 .brand{display:flex;align-items:center;gap:10px;text-shadow:0 1px 18px rgba(0,0,0,.45)}
 header.top.lit .brand{text-shadow:none}
-.brand b{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:26px;letter-spacing:.08em;line-height:1;text-transform:uppercase}
+.brand b{font-family:"Ultra",Georgia,serif;font-weight:400;font-size:17px;letter-spacing:.01em;line-height:1;text-transform:uppercase;color:#a47bff}
+header.top.lit .brand b{color:var(--amethyst)}
 .brand span{opacity:.7}
 nav.main{display:flex;gap:28px;align-items:center}
 nav.main a{font-size:13px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)}
@@ -72,8 +73,10 @@ header.top.lit nav.main a.pill:hover{background:var(--ink);color:var(--paper);bo
 /* opening wordmark, centred and huge */
 .open{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--glass);pointer-events:none;will-change:opacity,transform}
 /* the wordmark, set like the shop's sign: heavy condensed letters in violet, glowing warm from behind */
-.open h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(3.8rem,12.5vw,12.5rem);line-height:.9;letter-spacing:.12em;text-transform:uppercase;color:#8d55ff;text-shadow:.04em .05em 0 #1a0b3a,0 0 .5em rgba(236,255,150,.28),0 0 1.4em rgba(236,255,150,.16)}
-.open h1 em{display:block;font-style:normal}
+.open h1{font-family:"Ultra",Georgia,serif;font-weight:400;font-size:clamp(3.4rem,10vw,10.5rem);line-height:.95;letter-spacing:-.005em;text-transform:uppercase;white-space:nowrap;color:#7d3cff;transform:scaleX(.78);
+  text-shadow:0 .018em 0 #2a1170,0 .036em 0 #22105c,0 .054em 0 #1a0b3a,0 .075em 0 #120726,0 0 .06em rgba(10,5,30,.9),0 0 .35em rgba(214,255,120,.42),0 0 1.1em rgba(214,255,120,.2)}
+.open h1 span{display:inline-block}
+@media(max-width:760px){.open h1{font-size:clamp(3.4rem,19vw,7rem);transform:scaleX(.8)}.open h1 span{display:block}}
 .open p{margin-top:26px;color:rgba(244,241,236,.8)}
 
 /* the specimen label: bottom-left, rewrites itself per chapter */
@@ -192,7 +195,7 @@ main.room{position:relative;z-index:2;background:var(--paper)}
 
 footer.foot{background:var(--ink);color:rgba(239,232,220,.7);padding:clamp(60px,8vw,110px) var(--pad) 40px}
 footer .big{font-family:var(--serif);font-size:clamp(3.4rem,11vw,11rem);line-height:.85;letter-spacing:-.03em;color:var(--paper)}
-footer .big .sign{font-family:"Bebas Neue",Impact,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#a47bff}
+footer .big .sign{font-family:"Ultra",Georgia,serif;font-size:.62em;letter-spacing:0;text-transform:uppercase;color:#8d55ff;text-shadow:0 .03em 0 #2a1170,0 .06em 0 #120726,0 0 .4em rgba(214,255,120,.22)}
 footer .big em{color:#cdb0ff}
 footer .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;padding-top:26px;border-top:1px solid rgba(239,232,220,.18);font-size:14px;line-height:1.7}
 footer .soc{display:flex;gap:12px}
@@ -204,8 +207,6 @@ footer small{display:block;margin-top:40px;font-size:11px;letter-spacing:.05em;c
 
 @media (prefers-reduced-motion: reduce){.sec .wrap>*{opacity:1;transform:none;transition:none}.label .swap{transition:none}}
 
-/* Clean text logo styling */
-.open h1{filter:drop-shadow(0 0 1.6vw rgba(236,255,150,.30)) drop-shadow(0 0 4vw rgba(236,255,150,.12));padding:2vw 3vw;margin:-2vw -3vw}
 .label .card{grid-template-columns:1fr}
 .label .line{grid-column:auto}
 
@@ -246,7 +247,7 @@ footer small{display:block;margin-top:40px;font-size:11px;letter-spacing:.05em;c
 
     <div class="open" id="top">
       <p class="mono" style="margin:0 0 24px">3202 Guadalupe St · Austin, Texas</p>
-      <h1>Crystals<br>World</h1>
+      <h1><span>Crystals</span> <span>World</span></h1>
       <p class="mono">Crystals · Minerals · Jewelry</p>
     </div>
 
