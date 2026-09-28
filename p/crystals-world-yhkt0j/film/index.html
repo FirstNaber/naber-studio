@@ -14,7 +14,7 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Store","name":"Crystals World","description":"Crystal and mineral shop in Austin, Texas. Retail and wholesale.","telephone":"+1-737-320-8079","address":{"@type":"PostalAddress","streetAddress":"3202 Guadalupe St Ste C","addressLocality":"Austin","addressRegion":"TX","postalCode":"78705","addressCountry":"US"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"203"},"sameAs":["https://www.instagram.com/crystals_world01/","https://www.tiktok.com/@crystals_world01","https://www.facebook.com/share/19NQg3GGVh/"]}
 </script>
@@ -52,7 +52,7 @@ header.top{position:fixed;left:14px;right:14px;top:14px;z-index:40;display:flex;
 header.top.lit{background:rgba(239,232,220,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink);border-color:var(--rule)}
 .brand{display:flex;align-items:center;gap:10px;text-shadow:0 1px 18px rgba(0,0,0,.45)}
 header.top.lit .brand{text-shadow:none}
-.brand b{font-family:"Ranchers",Impact,sans-serif;font-weight:400;font-size:24px;letter-spacing:.015em;line-height:1;text-transform:uppercase}
+.brand b{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:26px;letter-spacing:.08em;line-height:1;text-transform:uppercase}
 .brand span{opacity:.7}
 nav.main{display:flex;gap:28px;align-items:center}
 nav.main a{font-size:13px;font-weight:500;text-shadow:0 1px 14px rgba(0,0,0,.5)}
@@ -72,7 +72,7 @@ header.top.lit nav.main a.pill:hover{background:var(--ink);color:var(--paper);bo
 /* opening wordmark, centred and huge */
 .open{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--glass);pointer-events:none;will-change:opacity,transform}
 /* the wordmark, set like the shop's sign: heavy condensed letters in violet, glowing warm from behind */
-.open h1{font-family:"Ranchers",Impact,sans-serif;font-weight:400;font-size:clamp(3.8rem,12.5vw,12.5rem);line-height:.9;letter-spacing:.01em;text-transform:uppercase;color:#8d55ff;text-shadow:.04em .05em 0 #1a0b3a,0 0 .5em rgba(236,255,150,.28),0 0 1.4em rgba(236,255,150,.16)}
+.open h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(3.8rem,12.5vw,12.5rem);line-height:.9;letter-spacing:.12em;text-transform:uppercase;color:#8d55ff;text-shadow:.04em .05em 0 #1a0b3a,0 0 .5em rgba(236,255,150,.28),0 0 1.4em rgba(236,255,150,.16)}
 .open h1 em{display:block;font-style:normal}
 .open p{margin-top:26px;color:rgba(244,241,236,.8)}
 
@@ -192,7 +192,7 @@ main.room{position:relative;z-index:2;background:var(--paper)}
 
 footer.foot{background:var(--ink);color:rgba(239,232,220,.7);padding:clamp(60px,8vw,110px) var(--pad) 40px}
 footer .big{font-family:var(--serif);font-size:clamp(3.4rem,11vw,11rem);line-height:.85;letter-spacing:-.03em;color:var(--paper)}
-footer .big .sign{font-family:"Ranchers",Impact,sans-serif;letter-spacing:.01em;text-transform:uppercase;color:#a47bff}
+footer .big .sign{font-family:"Bebas Neue",Impact,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#a47bff}
 footer .big em{color:#cdb0ff}
 footer .cols{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;padding-top:26px;border-top:1px solid rgba(239,232,220,.18);font-size:14px;line-height:1.7}
 footer .soc{display:flex;gap:12px}
@@ -204,15 +204,8 @@ footer small{display:block;margin-top:40px;font-size:11px;letter-spacing:.05em;c
 
 @media (prefers-reduced-motion: reduce){.sec .wrap>*{opacity:1;transform:none;transition:none}.label .swap{transition:none}}
 
-/* the shop's own sign lettering, traced from the storefront: violet faces, a deep extrusion, a warm glow behind */
-.wm{display:block;height:auto;overflow:visible}
-.wm-nav{width:150px;color:#fff;filter:drop-shadow(0 1px 10px rgba(0,0,0,.5))}
-header.top.lit .wm-nav{color:var(--ink);filter:none}
-.wm-hero{width:min(88vw,1150px);color:#8d55ff;filter:drop-shadow(.3vw .4vw 0 #1a0b3a)}
-/* the warm backlight sits on the heading around the logo, so it spreads freely instead of being clipped to the logo's box */
-.open h1{filter:drop-shadow(0 0 1.6vw rgba(236,255,150,.30)) drop-shadow(0 0 4vw rgba(236,255,150,.12));padding:3vw 4vw;margin:-3vw -4vw}
-.wm-foot{width:min(100%,980px);color:#a47bff;margin-bottom:.12em}
-@media(max-width:820px){.wm-nav{width:118px}}
+/* Clean text logo styling */
+.open h1{filter:drop-shadow(0 0 1.6vw rgba(236,255,150,.30)) drop-shadow(0 0 4vw rgba(236,255,150,.12));padding:2vw 3vw;margin:-2vw -3vw}
 .label .card{grid-template-columns:1fr}
 .label .line{grid-column:auto}
 
@@ -237,7 +230,7 @@ header.top.lit .wm-nav{color:var(--ink);filter:none}
 <div class="case" aria-hidden="true"></div>
 
 <header class="top">
-  <a class="brand" href="#top" aria-label="Crystals World, back to top"><svg class="wm wm-nav" viewBox="0 0 3402.089289 429.749747" aria-hidden="true"><use href="#wm"/></svg><span class="mono">Austin · TX</span></a>
+  <a class="brand" href="#top" aria-label="Crystals World, back to top"><b>Crystals World</b><span class="mono">Austin · TX</span></a>
   <nav class="main" aria-label="Primary">
     <a href="#pieces">Pieces</a>
     <a href="../variation-c-collector/wall/">The Wall</a>
@@ -253,7 +246,7 @@ header.top.lit .wm-nav{color:var(--ink);filter:none}
 
     <div class="open" id="top">
       <p class="mono" style="margin:0 0 24px">3202 Guadalupe St · Austin, Texas</p>
-      <h1><svg class="wm wm-hero" viewBox="0 0 3402.089289 429.749747" role="img" aria-label="Crystals World"><use href="#wm"/></svg></h1>
+      <h1>Crystals<br>World</h1>
       <p class="mono">Crystals · Minerals · Jewelry</p>
     </div>
 
@@ -353,7 +346,7 @@ header.top.lit .wm-nav{color:var(--ink);filter:none}
   </section>
 
   <footer class="foot">
-    <p class="big"><svg class="wm wm-foot" viewBox="0 0 3402.089289 429.749747" role="img" aria-label="Crystals World"><use href="#wm"/></svg><em>on Guadalupe.</em></p>
+    <p class="big"><span class="sign">Crystals World</span> <em>on Guadalupe.</em></p>
     <div class="cols">
       <div>3202 Guadalupe St Ste C<br>Austin, TX 78705<br><a href="tel:+17373208079">(737) 320-8079</a></div>
       <div>Retail &amp; wholesale crystals, minerals, gemstones and jewelry.</div>
