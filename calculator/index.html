@@ -1,44 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Naber Studio — Under construction</title>
-<meta name="description" content="Naber Studio is building something new. Back soon.">
-<meta name="robots" content="noindex, nofollow">
+<title>Catering calculator — Naber Studio</title>
+<meta name="description" content="How much catering revenue is your buffet missing? Answer eight questions and see the potential catering revenue from new buffet guests and from your existing customer database.">
 <meta name="theme-color" content="#131313">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/brand/brand.css?v=9">
-<style>
-  .soon{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:110px var(--pad) 60px;max-width:1600px;margin:0 auto}
-  .soon .hero-title{font-size:clamp(72px,min(14vw,20vh),240px)}
-  .soon .hero-eyebrow,.soon .hero-meta{opacity:1}
-  .soon .ln>span{transform:none}
-  .soon-line{margin-top:30px;font-size:clamp(15px,1.5vw,19px);color:#d6d6d2;max-width:34em}
-  .soon-line em{color:var(--o)}
-  .soon-bar{margin-top:34px;width:min(420px,80vw);height:3px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
-  .soon-bar i{display:block;height:100%;width:40%;background:var(--o);border-radius:9px;animation:build 2.4s cubic-bezier(.6,0,.4,1) infinite}
-  @keyframes build{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
-  @media(prefers-reduced-motion:reduce){.soon-bar i{animation:none;width:60%}}
-</style>
+<link rel="stylesheet" href="../brand/brand.css?v=7">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="glow" aria-hidden="true"></div>
-<header class="nav"><span class="mark">NS<small>Naber Studio</small></span></header>
-<main class="soon">
-  <p class="hero-eyebrow">Naber Studio <i></i> Austin, TX</p>
-  <h1 class="hero-title">
-    <span class="ln"><span>Under</span></span>
-    <span class="ln"><span class="c-o">construction.</span></span>
-  </h1>
-  <p class="soon-line">We’re building something new. <em>Back soon.</em></p>
-  <div class="soon-bar" aria-hidden="true"><i></i></div>
-  <div class="cta-row"><a class="btn btn-ghost" href="mailto:hello@naberstudio.com">hello@naberstudio.com</a></div>
+
+<header class="nav">
+  <a href="../" class="mark" aria-label="Naber Studio home">NS<small>Naber Studio</small></a>
+  <div class="nav-r">
+    <a class="nav-cta" href="../calculator/">Find my money</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span>ME</span><span>NU</span><i></i></button>
+  </div>
+</header>
+
+<nav id="menu" class="menu" aria-hidden="true" aria-label="Menu">
+  <a href="../calculator/"><span>01</span>The money</a>
+  <a href="../#real"><span>02</span>What we do</a>
+  <a href="../#try"><span>03</span>Build a site</a>
+  <a href="../#how"><span>04</span>Process</a>
+  <a href="../#pricing"><span>05</span>Pricing</a>
+  <a href="../faris/"><span>06</span>Founder</a>
+  <a href="../contact/"><span>07</span>Contact</a>
+  <p class="menu-foot"><a href="mailto:hello@naberstudio.com">hello@naberstudio.com</a> · Austin, TX</p>
+</nav>
+
+<main id="main" class="doc calc-page">
+  <h1 class="mega left"><span class="l1">What are you</span><span class="l2 c-t">Missing?</span></h1>
+  <p class="lede reveal">Turn existing buffet customers into catering customers. One $20 buffet visit can become a $1,500+ catering relationship. Answer eight quick questions and see the potential monthly catering revenue from new customers, and the one-time opportunity already sitting in the customer database.</p>
+  <div class="calc-wrap reveal" data-calc data-url></div>
+  <noscript><p class="lede">The calculator needs JavaScript. Email <a class="link-arrow" href="mailto:hello@naberstudio.com">hello@naberstudio.com</a> and I’ll run your numbers with you.</p></noscript>
 </main>
-<script src="/brand/brand.js?v=9" defer></script>
+<footer class="foot">
+  <span>© <span data-year>2026</span> Naber Studio · operated by Faris Naber</span>
+  <nav aria-label="Legal"><a href="../contact/">Contact</a><a href="../terms/">Terms</a><a href="../terms/#refunds">Refunds</a><a href="../privacy/">Privacy</a></nav>
+</footer>
+<script src="../brand/brand.js?v=7" defer></script>
+<script src="../brand/calc.js?v=7" defer></script>
 </body>
 </html>

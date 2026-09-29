@@ -3,42 +3,425 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Naber Studio — Under construction</title>
-<meta name="description" content="Naber Studio is building something new. Back soon.">
-<meta name="robots" content="noindex, nofollow">
+<title>Faris Naber — CEO &amp; Founder, Naber Studio</title>
+<meta name="description" content="Faris Naber, CEO and founder of Naber Studio in Austin, TX. Sales systems that took a cold market to $530K+ and sold $3.7M in four months. Now Naber Studio builds sales systems and websites that convert.">
+<meta property="og:title" content="Faris Naber — CEO &amp; Founder, Naber Studio">
+<meta property="og:description" content="Sales systems that took a cold market to $530K+ and sold $3.7M in four months. Now building sales systems and websites that convert, at Naber Studio.">
+<meta property="og:image" content="assets/faris-iqos-kiosk.jpg">
 <meta name="theme-color" content="#131313">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="build" content="44">
+<script>
+// GitHub Pages lets browsers cache this page for ~10 minutes. On load, ask the server for the
+// current build number (bypassing the cache) and jump to a fresh URL if this copy is stale.
+(function () {
+  try {
+    var mine = document.querySelector('meta[name=build]').content;
+    fetch(location.pathname + '?nc=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.text(); }).then(function (t) {
+      var m = t.match(/name="build" content="(\d+)"/);
+      if (m && m[1] !== mine && sessionStorage.getItem('fn-build') !== m[1]) {
+        sessionStorage.setItem('fn-build', m[1]);
+        var q = new URLSearchParams(location.search); q.set('b', m[1]);
+        location.replace(location.pathname + '?' + q.toString() + location.hash);
+      }
+    }).catch(function () {});
+  } catch (e) {}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/brand/brand.css?v=9">
-<style>
-  .soon{position:relative;z-index:1;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:110px var(--pad) 60px;max-width:1600px;margin:0 auto}
-  .soon .hero-title{font-size:clamp(72px,min(14vw,20vh),240px)}
-  .soon .hero-eyebrow,.soon .hero-meta{opacity:1}
-  .soon .ln>span{transform:none}
-  .soon-line{margin-top:30px;font-size:clamp(15px,1.5vw,19px);color:#d6d6d2;max-width:34em}
-  .soon-line em{color:var(--o)}
-  .soon-bar{margin-top:34px;width:min(420px,80vw);height:3px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
-  .soon-bar i{display:block;height:100%;width:40%;background:var(--o);border-radius:9px;animation:build 2.4s cubic-bezier(.6,0,.4,1) infinite}
-  @keyframes build{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
-  @media(prefers-reduced-motion:reduce){.soon-bar i{animation:none;width:60%}}
-</style>
+<link rel="stylesheet" href="styles.css?v=44">
 </head>
 <body>
+
 <canvas id="stars" aria-hidden="true"></canvas>
 <div class="glow" aria-hidden="true"></div>
-<header class="nav"><span class="mark">NS<small>Naber Studio</small></span></header>
-<main class="soon">
-  <p class="hero-eyebrow">Naber Studio <i></i> Austin, TX</p>
+
+<header class="nav">
+  <a href="#top" class="mark" aria-label="Faris Naber, back to top">FN</a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span>ME</span><span>NU</span><i></i></button>
+</header>
+
+<nav id="menu" class="menu" aria-hidden="true">
+  <a href="#numbers"><span>01</span>Numbers</a>
+  <a href="#motion"><span>02</span>Motion</a>
+  <a href="#work"><span>03</span>Work</a>
+  <a href="#pattern"><span>04</span>Pattern</a>
+  <a href="#studio"><span>05</span>Naber Studio</a>
+  <a href="#toolkit"><span>06</span>Toolkit</a>
+  <a href="#record"><span>07</span>Record</a>
+  <a href="#contact"><span>08</span>Contact</a>
+  <p class="menu-foot"><a href="mailto:faris@naberstudio.com">faris@naberstudio.com</a> · <a href="/">naberstudio.com</a></p>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="orb" aria-hidden="true"></canvas>
+  <p class="hero-eyebrow">Faris Naber <i></i> CEO &amp; Founder, Naber Studio <i></i> Austin, TX</p>
   <h1 class="hero-title">
-    <span class="ln"><span>Under</span></span>
-    <span class="ln"><span class="c-o">construction.</span></span>
+    <span class="ln"><span>Revenue</span></span>
+    <span class="ln"><span>from</span></span>
+    <span class="ln"><span class="c-o">zero.</span></span>
   </h1>
-  <p class="soon-line">We’re building something new. <em>Back soon.</em></p>
-  <div class="soon-bar" aria-hidden="true"><i></i></div>
-  <div class="cta-row"><a class="btn btn-ghost" href="mailto:hello@naberstudio.com">hello@naberstudio.com</a></div>
+  <div class="hero-meta">
+    <ul class="hero-proof">
+      <li><b>$530K+</b> from a cold market</li>
+      <li><b>$3.7M</b> sold in four months</li>
+      <li><b>Systems</b> still running after I left</li>
+    </ul>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- INTRO CARD + LOGOS -->
+<section class="intro">
+  <div class="intro-row">
+  <div class="glass intro-card reveal">
+    <span class="sig" aria-hidden="true">FN</span>
+    <p>Hi, I’m Faris.</p>
+    <p>I’m the CEO and founder of <em class="c-o">Naber Studio</em>. We build sales systems and websites that convert.</p>
+    <p>On sales floors I took a cold market to <em class="c-t">$530K+</em> and sold $3.7M in four months, then turned what worked into systems other reps still run. Naber Studio builds that same system for local businesses, with the website that runs it.</p>
+    <div class="intro-cta">
+      <a class="link-dl" href="/">Visit Naber Studio →</a>
+      <a class="link-dl" href="#work">See the work →</a>
+    </div>
+  </div>
+    <div class="phone-stage reveal">
+      <div class="phone-wrap">
+        <div class="phone" role="img" aria-label="Faris Naber at the IQOS kiosk in Austin. Drag to spin the phone.">
+          <i class="ph-edge" style="--z:-7px"></i><i class="ph-edge" style="--z:-6px"></i><i class="ph-edge" style="--z:-5px"></i><i class="ph-edge" style="--z:-4px"></i><i class="ph-edge" style="--z:-3px"></i><i class="ph-edge" style="--z:-2px"></i><i class="ph-edge" style="--z:-1px"></i><i class="ph-edge" style="--z:0px"></i><i class="ph-edge" style="--z:1px"></i><i class="ph-edge" style="--z:2px"></i><i class="ph-edge" style="--z:3px"></i><i class="ph-edge" style="--z:4px"></i><i class="ph-edge" style="--z:5px"></i><i class="ph-edge" style="--z:6px"></i><i class="ph-edge" style="--z:7px"></i>
+          <i class="ph-btn l action" style="--t:17%;--h:4%"></i><i class="ph-btn l" style="--t:24%;--h:8%"></i><i class="ph-btn l" style="--t:34%;--h:8%"></i><i class="ph-btn r" style="--t:27%;--h:12%"></i>
+          <div class="ph-face ph-back">
+            <div class="ph-cam"><b class="lens"></b><b class="lens"></b><b class="lens"></b><b class="flash"></b><b class="lidar"></b></div>
+            <span class="ph-mark">FN</span>
+          </div>
+          <div class="ph-face ph-front">
+            <div class="phone-screen">
+              <img src="assets/faris-iqos-kiosk.jpg?v=44" alt="" width="768" height="1024" draggable="false">
+              <div class="ph-status"><span>9:41</span><span class="ph-icons"><i class="sig"></i><i class="wifi"></i><i class="bat"></i></span></div>
+              <i class="island"></i>
+              <i class="home-bar"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="phone-cap">— On the kiosk. Austin —</p>
+      <p class="phone-hint">Drag to spin ↻</p>
+    </div>
+  </div>
+
+  <div class="marquee reveal" aria-label="Companies I have sold for">
+    <div class="track">
+      <img class="lg-img lg-pmi" src="assets/logos/philip-morris-international.svg" alt="Philip Morris International">
+      <img class="lg-img lg-iqos" src="assets/logos/iqos.svg" alt="IQOS">
+      <span class="lg-rr"><img src="assets/logos/reprally-mark.png" alt="">RepRally</span>
+      <img class="lg-img lg-im" src="assets/logos/ideal-motors.png" alt="iDeal Motors">
+      <img class="lg-img lg-ird" src="assets/logos/institute-of-reading-development.svg" alt="Institute of Reading Development">
+      <img class="lg-img lg-pmi" src="assets/logos/philip-morris-international.svg" alt="" aria-hidden="true">
+      <img class="lg-img lg-iqos" src="assets/logos/iqos.svg" alt="" aria-hidden="true">
+      <span class="lg-rr" aria-hidden="true"><img src="assets/logos/reprally-mark.png" alt="">RepRally</span>
+      <img class="lg-img lg-im" src="assets/logos/ideal-motors.png" alt="" aria-hidden="true">
+      <img class="lg-img lg-ird" src="assets/logos/institute-of-reading-development.svg" alt="" aria-hidden="true">
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section id="numbers" class="block">
+  <h2 class="mega right"><span class="l1">The</span><span class="l2 c-t">Receipts</span></h2>
+
+  <div class="rank glass reveal">
+    <div class="rank-num"><span class="hash">#</span><span data-count="3">3</span></div>
+    <div class="rank-copy">
+      <p class="k">of 1,800 reps nationwide · Rep Rally</p>
+      <p class="rank-line">I’m the one percent.<br><span>Not the top half. Not the top ten.</span></p>
+    </div>
+  </div>
+
+  <div class="skills">
+    <div class="skill glass reveal">
+      <div class="skill-top"><b>Guided trials in a month</b><span class="c-o">3×</span></div>
+      <div class="sbar me"><i style="--w:100%"></i></div><p class="skill-row"><span>Me</span><span>72</span></p>
+      <div class="sbar"><i style="--w:33.3%"></i></div><p class="skill-row"><span>Next-best rep</span><span>24</span></p>
+      <p class="skill-tags">Philip Morris International · IQOS</p>
+    </div>
+    <div class="skill glass reveal">
+      <div class="skill-top"><b>Sales in the same month</b><span class="c-o">4×</span></div>
+      <div class="sbar me"><i style="--w:100%"></i></div><p class="skill-row"><span>Me</span><span>4×</span></p>
+      <div class="sbar"><i style="--w:25%"></i></div><p class="skill-row"><span>Next-best rep</span><span>1×</span></p>
+      <p class="skill-tags">Philip Morris International · IQOS</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat reveal"><div class="n">$<span data-count="530">530</span>K+</div><p>in sales from a completely cold market, into recurring revenue</p><em>Rep Rally</em></div>
+    <div class="stat reveal"><div class="n"><span data-count="323">323</span></div><p>accounts in just over a year, from zero</p><em>Rep Rally</em></div>
+    <div class="stat reveal"><div class="n">$<span data-count="3.7" data-dec="1">3.7</span>M</div><p>in four months</p><em>Ideal Motors</em></div>
+    <div class="stat reveal"><div class="n"><span data-count="29">29</span></div><p>units in one month, the company record</p><em>Ideal Motors</em></div>
+    <div class="stat reveal"><div class="n">#<span data-count="1">1</span></div><p>earner in the office</p><em>Ideal Motors</em></div>
+    <div class="stat reveal"><div class="n"><span data-count="41">41</span>%</div><p>close rate on inbound within three weeks</p><em>Institute of Reading Development</em></div>
+  </div>
+</section>
+
+<!-- MOTION -->
+<section id="motion" class="block">
+  <h2 class="mega left"><span class="l1">The</span><span class="l2 c-o">Motion</span></h2>
+  <p class="lede reveal">Great reps don’t need more hustle. They need the right process. I take strong reps and turn them into excellent ones: the right sales motion, the right system, the same steps every time.</p>
+  <ol class="steps">
+    <li class="reveal"><span>01</span>Approach</li>
+    <li class="reveal"><span>02</span>Earn 30 seconds</li>
+    <li class="reveal"><span>03</span>Get the product in their hands</li>
+    <li class="reveal"><span>04</span>Demo</li>
+    <li class="reveal"><span>05</span>Close</li>
+    <li class="reveal sys"><span>06</span>Document what worked</li>
+    <li class="reveal sys"><span>07</span>Turn it into a playbook</li>
+    <li class="reveal sys"><span>08</span>Make rep #2 able to run it</li>
+  </ol>
+  <blockquote class="pull glass reveal">
+    <p>The goal isn’t to be the only rep who can do it.</p>
+    <p class="c-o">The goal is to build the motion another rep can run.</p>
+  </blockquote>
+</section>
+
+<!-- WORK -->
+<section id="work" class="block">
+  <h2 class="mega right"><span class="l1">Selected</span><span class="l2 c-y">Work</span></h2>
+  <p class="lede reveal right-lede">Three sales floors. I built the system on each. Now Naber Studio builds it for you.</p>
+
+  <!-- 01 PMI -->
+  <article class="case">
+  <details class="case-fold">
+    <summary>    <p class="case-k reveal">01 — Philip Morris International · IQOS · Austin</p>
+    <h3 class="case-title reveal">Philip Morris</h3>
+    <p class="case-sub reveal">A three-year-old program. <span class="c-o">I rebuilt how it sold.</span></p>
+    <span class="case-toggle"><b>Read the story</b><i aria-hidden="true">+</i></span></summary>
+    <div class="case-body">
+    <div class="case-grid">
+      <div class="glass panel reveal">
+        <div class="era">
+          <div class="era-bar"><i class="era-old"></i><i class="era-new"></i></div>
+          <div class="era-lbl"><span>3 years on the old approach</span><span class="c-o">I join. New system.</span></div>
+        </div>
+        <p>The program had been running for three years when I joined. I didn’t follow the existing playbook. I rebuilt the approach into a real system, and ran it the same way every time.</p>
+        <ol class="stepper" aria-label="The kiosk motion">
+          <li>Approach</li><li>Hook</li><li>Product in hand</li><li>Full demo</li><li>Close</li>
+        </ol>
+        <p class="causal">More approaches <i>→</i> more trials <i>→</i> <span class="c-o">more sales</span></p>
+        <p class="sysline">Then the system: script, territory strategy, objection framework and hiring loop. Brewco, the agency that took over the program, still runs it.</p>
+      </div>
+      <div class="glass panel reveal">
+        <p class="k">Guided trials, one month</p>
+        <div class="duel-row me"><span class="duel-n" data-ccount="72">72</span><div class="duel-bar"><i style="--w:100%"></i></div><span class="duel-who">Me</span></div>
+        <div class="duel-row"><span class="duel-n">24</span><div class="duel-bar"><i style="--w:33.3%"></i></div><span class="duel-who">Next-best rep</span></div>
+        <p class="k gap">Sales, same month</p>
+        <div class="duel-row me"><span class="duel-n"><span data-ccount="4">4</span>×</span><div class="duel-bar"><i style="--w:100%"></i></div><span class="duel-who">Me</span></div>
+        <div class="duel-row"><span class="duel-n">1×</span><div class="duel-bar"><i style="--w:25%"></i></div><span class="duel-who">Next-best rep</span></div>
+      </div>
+    </div>
+    </div>
+  </details>
+  </article>
+
+  <!-- 02 Rep Rally -->
+  <article class="case">
+  <details class="case-fold">
+    <summary>    <p class="case-k reveal">02 — Rep Rally · Texas</p>
+    <h3 class="case-title reveal">Rep Rally</h3>
+    <p class="case-sub reveal">A completely cold market, <span class="c-t">turned into recurring revenue.</span></p>
+    <span class="case-toggle"><b>Read the story</b><i aria-hidden="true">+</i></span></summary>
+    <div class="case-body">
+    <div class="case-grid">
+      <div class="glass panel reveal">
+        <p>Texas was a completely cold market with a cold approach: store owners who already carried a dozen vendors and wanted no more.</p>
+        <div class="flip" aria-label="“No more vendors” became the opening">
+          <span class="flip-obj">“No more vendors.”</span>
+          <span class="flip-arrow">↓</span>
+          <span class="flip-open">became the opening.</span>
+        </div>
+        <p>I repositioned around what Rep Rally does that they don’t. Then I widened the market from c-stores into wholesale-to-wholesale, and held the book through the Sept 2025 Texas category ban.</p>
+        <p class="sysline">Then the system: I wrote the territory playbook and the cold-store workflow, and lead the fireside meetings that get new reps to their first 10–20 accounts faster.</p>
+      </div>
+      <div class="glass panel reveal field">
+        <p class="k">1,800 reps nationwide. One of them is <span class="c-t">#3</span>.</p>
+        <div class="dots-wrap">
+          <canvas class="dots" aria-label="1,800 dots, one highlighted: rank 3 of 1,800"></canvas>
+          <span class="dots-tip" aria-hidden="true"></span>
+        </div>
+        <p class="field-foot"><span class="c-t">#3</span> of 1,800 · top 0.2% · hover the grid</p>
+      </div>
+    </div>
+
+    <div class="glass panel growth2 reveal">
+      <div class="g2-head">
+        <p class="k">Rep Rally Texas · cumulative sales from a cold start</p>
+        <div class="g2-read">
+          <div><strong class="g2-acc">0</strong><span>accounts</span></div>
+          <div><strong class="g2-sales">$0</strong><span>in sales</span></div>
+        </div>
+      </div>
+      <div class="g2-plot">
+        <svg viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="g2fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ff0ee" stop-opacity=".32"/><stop offset="1" stop-color="#8ff0ee" stop-opacity="0"/></linearGradient>
+            <clipPath id="g2clip"><rect class="g2-cliprect" x="0" y="0" width="0" height="360"/></clipPath>
+          </defs>
+          <g class="g2-grid"><line x1="60" y1="320" x2="960" y2="320"/><line x1="60" y1="223" x2="960" y2="223"/><line x1="60" y1="126" x2="960" y2="126"/><line x1="60" y1="30" x2="960" y2="30"/></g>
+          <path class="g2-area" clip-path="url(#g2clip)" d="M60 320 C140 319 200 287.8 267.7 268.2 C427.7 221.8 760 145.5 960 45.5 L960 320 Z"/>
+          <path class="g2-line" pathLength="1" d="M60 320 C140 319 200 287.8 267.7 268.2 C427.7 221.8 760 145.5 960 45.5"/>
+          <line class="g2-drop d1" x1="267.7" y1="268.2" x2="267.7" y2="320"/>
+          <line class="g2-drop d2" x1="960" y1="45.5" x2="960" y2="320"/>
+        </svg>
+        <i class="g2-head-dot"></i>
+        <i class="g2-pt p1" style="left:26.77%;top:74.5%"></i>
+        <i class="g2-pt p2" style="left:96%;top:12.64%"></i>
+        <div class="g2-call c1" style="left:26.77%;top:74.5%">
+          <em>First 90 days</em>
+          <b>80+ accounts</b>
+          <b>$100K in sales</b>
+        </div>
+        <div class="g2-call c2" style="left:96%;top:12.64%">
+          <em>Just over a year</em>
+          <b class="c-t">323 accounts</b>
+          <b class="c-t">$530K+ in sales</b>
+        </div>
+        <span class="g2-x x0">Day 0</span><span class="g2-x x1">90 days</span><span class="g2-x x2">Just over a year</span>
+      </div>
+      <div class="g2-legend">
+        <div><em>First 90 days</em><b>80+ accounts · $100K</b></div>
+        <div><em>Just over a year</em><b class="c-t">323 accounts · $530K+</b></div>
+      </div>
+      <p class="g2-note">Accounts reorder, so sales compound as the book grows.</p>
+    </div>
+    </div>
+  </details>
+  </article>
+
+  <!-- 03 Ideal Motors -->
+  <article class="case">
+  <details class="case-fold">
+    <summary>    <p class="case-k reveal">03 — Ideal Motors · Costa Mesa</p>
+    <h3 class="case-title reveal">Ideal Motors</h3>
+    <p class="case-sub reveal">No appointment system. <span class="c-y">So I built one, and broke the record.</span></p>
+    <span class="case-toggle"><b>Read the story</b><i aria-hidden="true">+</i></span></summary>
+    <div class="case-body">
+    <div class="case-grid">
+      <div class="glass panel reveal">
+        <div class="flow">
+          <div class="flow-c"><em>When I joined</em><strong class="x">No system</strong><span>for setting appointments</span></div>
+          <i>→</i>
+          <div class="flow-c on"><em>What I built</em><strong>A motion</strong><span>online lead funnels + scripts</span></div>
+          <i>→</i>
+          <div class="flow-c on"><em>Result</em><strong>More booked</strong><span>more cars sold than anyone</span></div>
+        </div>
+        <p>There was no system for setting appointments when I joined. I built a motion that booked more appointments, which meant more cars sold than anyone on the floor. The floor adopted the scripts.</p>
+        <div class="kpis">
+          <div><strong>$<span data-ccount="3.7" data-dec="1">3.7</span>M</strong><span>in four months</span></div>
+          <div><strong><span data-ccount="75">75</span>+</strong><span>EVs sold</span></div>
+        </div>
+      </div>
+      <div class="glass panel reveal">
+        <p class="k">Units in one month · <span class="c-y">29, the company record</span></p>
+        <div class="big29"><span data-ccount="29">29</span></div>
+        <div class="cells s29"></div>
+        <p class="k gap">Highest earner in the office</p>
+      </div>
+    </div>
+    </div>
+  </details>
+  </article>
+
+  <p class="aside reveal">Where it started: at the Institute of Reading Development I found I have a drive to close. <span class="c-t">41% close rate on inbound within three weeks.</span></p>
+</section>
+
+<!-- PATTERN -->
+<section id="pattern" class="block">
+  <h2 class="mega left"><span class="l1">The</span><span class="l2 c-t">Pattern</span></h2>
+  <p class="lede reveal">I repeatedly turn personal sales execution into something repeatable.</p>
+  <ol class="chain">
+    <li class="glass reveal"><span>01</span><h3>One rep</h3><p>Top 1% of 1,800</p></li>
+    <li class="glass reveal"><span>02</span><h3>One motion</h3><p>Approach to close, the same every time</p></li>
+    <li class="glass reveal"><span>03</span><h3>One playbook</h3><p>Script · workflow · objections</p></li>
+    <li class="glass reveal"><span>04</span><h3>Rep #2 can run it</h3><p>Brewco still runs it. Fireside meetings for new reps</p></li>
+    <li class="glass reveal final"><span>05</span><h3>System</h3><p>Great reps become excellent ones</p></li>
+  </ol>
+</section>
+
+<!-- NABER STUDIO -->
+<section id="studio" class="block">
+  <h2 class="mega left"><span class="l1">Naber</span><span class="l2 c-o">Studio</span></h2>
+  <p class="lede reveal">Everything I learned building sales systems, turned into a studio for local businesses.</p>
+  <ol class="chain">
+    <li class="glass reveal"><span>01</span><h3>Sales systems</h3><p>The motion, the scripts and the follow-up that turn interest into sales</p></li>
+    <li class="glass reveal"><span>02</span><h3>Websites that convert</h3><p>Designed around how your customers actually buy</p></li>
+    <li class="glass reveal"><span>03</span><h3>Online stores</h3><p>Checkout, pickup, and a phone tool to add and sell in seconds</p></li>
+    <li class="glass reveal"><span>04</span><h3>Built to run without me</h3><p>The same rule as every sales floor: a system you own</p></li>
+    <li class="glass reveal final"><span>05</span><h3><a href="/">naberstudio.com →</a></h3><p>Type your business name and watch your website get built</p></li>
+  </ol>
+</section>
+
+<!-- TOOLKIT -->
+<section id="toolkit" class="block">
+  <h2 class="mega right"><span class="l1">The</span><span class="l2 c-t">Toolkit</span></h2>
+  <p class="lede reveal right-lede">One founder, working with AI as part of the studio. Everything below has been built and shipped, not just pitched.</p>
+  <ul class="caps">
+    <li class="glass reveal"><span>01</span><h3>Revenue calculators</h3><p>Custom calculators that show a business the money it’s leaving on the table, on its own numbers.</p><a href="/calculator/">See one →</a></li>
+    <li class="glass reveal"><span>02</span><h3>Sales systems</h3><p>Offers, follow-up texts and customer lists that turn one-time buyers into repeat revenue.</p></li>
+    <li class="glass reveal"><span>03</span><h3>Scroll-film websites</h3><p>A cinematic video turned into a website that plays as you scroll, smooth on any phone.</p></li>
+    <li class="glass reveal"><span>04</span><h3>Websites &amp; online stores</h3><p>Custom design, checkout, shipping and in-store pickup, with a phone tool to add and sell.</p></li>
+    <li class="glass reveal"><span>05</span><h3>Payments</h3><p>Stripe checkout, payment links, QR payment cards and monthly subscriptions.</p></li>
+    <li class="glass reveal"><span>06</span><h3>Private proposals</h3><p>Client proposals on your own domain, behind a passcode, with approve-and-pay built in.</p></li>
+    <li class="glass reveal"><span>07</span><h3>Logo recovery</h3><p>A clean vector logo rebuilt from nothing but a photo of the shop sign.</p></li>
+    <li class="glass reveal"><span>08</span><h3>AI photo &amp; video upscaling</h3><p>Old shop photos and video frames sharpened to 4K, processed locally.</p></li>
+    <li class="glass reveal"><span>09</span><h3>Social commerce</h3><p>A TikTok catalog pulled into a shoppable wall, so every video can sell.</p></li>
+    <li class="glass reveal"><span>10</span><h3>Instant site builder</h3><p>Type a business name and watch a website concept build itself in seconds.</p><a href="/#try">Try it →</a></li>
+    <li class="glass reveal"><span>11</span><h3>Motion &amp; 3D</h3><p>WebGL fluid, 3D objects you can spin and scroll-driven animation, like this page.</p></li>
+    <li class="glass reveal"><span>12</span><h3>Launch &amp; setup</h3><p>Domain, DNS, HTTPS, business email, agreements, terms and a repeatable delivery playbook.</p></li>
+  </ul>
+</section>
+
+<!-- RECORD -->
+<section id="record" class="block">
+  <h2 class="mega right"><span class="l1">The</span><span class="l2 c-o">Record</span></h2>
+  <ul class="timeline">
+    <li class="glass reveal"><div><h3>Naber Studio</h3><p>CEO &amp; Founder · Austin, TX</p></div><time>2026 – Present</time></li>
+    <li class="glass reveal"><div><h3>Philip Morris International (IQOS)</h3><p>Account Manager, via Mosaic · Austin, TX</p></div><time>2025 – Apr 2026</time></li>
+    <li class="glass reveal"><div><h3>Rep Rally</h3><p>Sales Partner · Texas</p></div><time>Jul 2024 – Present</time></li>
+    <li class="glass reveal"><div><h3>Ideal Motors</h3><p>Sales Professional · Costa Mesa, CA</p></div><time>2022 – 2023</time></li>
+    <li class="glass reveal"><div><h3>Institute of Reading Development</h3><p>Sales Professional · Chico, CA</p></div><time>2021 – 2022</time></li>
+  </ul>
+  <p class="tools reveal">CRM · Salesforce · HubSpot · Zoho · Monday · Airtable &nbsp;/&nbsp; Dialer · Aircall &nbsp;/&nbsp; Languages · English · Arabic (native)</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="block contact">
+  <div class="talk">
+    <canvas class="talk-fluid" aria-hidden="true"></canvas>
+    <h2 class="talk-h"><span class="talk-w">Let’s</span> <span class="talk-w">Talk</span></h2>
+  <div class="talk-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="glass contact-card reveal">
+    <div class="card-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p class="contact-q">Want a website and a sales system that actually convert?</p>
+    <p>Naber Studio builds both for local businesses. Tell me about yours.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:faris@naberstudio.com?subject=Naber%20Studio">Let’s talk</a>
+      <a class="btn btn-ghost" href="/">See Naber Studio</a>
+    </div>
+    <p class="contact-lines">
+      <a href="mailto:faris@naberstudio.com">faris@naberstudio.com</a>
+      <a href="tel:+19515194504">(951) 519-4504</a>
+      <span>Austin, TX</span>
+    </p>
+  </div>
+  </div>
+</section>
+
 </main>
-<script src="/brand/brand.js?v=9" defer></script>
+<footer class="foot"><span>© Faris Naber · CEO &amp; Founder, <a href="/">Naber Studio</a></span><a href="#top">Back to top ↑</a></footer>
+
+<script src="main.js?v=44"></script>
+<script src="variants.js?v=44"></script>
 </body>
 </html>
