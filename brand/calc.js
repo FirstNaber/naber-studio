@@ -1,35 +1,36 @@
-/* Naber Studio catering opportunity calculator — ESTIMATED ADDITIONAL CATERING REVENUE only.
-   Two opportunities, kept separate:
-     1. Monthly: guests × phone capture rate = new numbers a month; × conversion (low/high) = additional bookings;
-        × average catering order = potential additional monthly catering revenue (recurring).
-     2. Existing database: existing numbers × conversion (low/high) × average order = potential one-time revenue.
-   The optional cost per booking is shown as a secondary estimate. No food, labor or other costs are subtracted.
-   It asks one question at a time, then shows the numbers. Renders into every [data-calc]. */
+/* Naber Studio revenue opportunity calculator — ESTIMATED ADDITIONAL REVENUE only. Works for any local
+   business: replace "customers" and "premium offer" with whatever fits (catering, memberships, service
+   plans, big-ticket jobs, ...). Two opportunities, kept separate:
+     1. Monthly: customers × contact-capture rate = new contacts a month; × conversion (low/high) = additional
+        bookings for your premium offer; × its average value = potential additional monthly revenue (recurring).
+     2. Existing database: existing contacts × conversion (low/high) × average value = potential one-time revenue.
+   The optional cost per booking is shown as a secondary estimate. No cost of goods, labor or other operating
+   costs are subtracted. It asks one question at a time, then shows the numbers. Renders into every [data-calc]. */
 (() => {
   // every input; `convLo`/`convHi` are asked together as a range ("between __ and __")
   const F = {
-    guests:  { label: 'Monthly buffet guests', pre: '', v: 1000, step: 50, group: 'buffet' },
-    capture: { label: 'Guests who give their phone number', post: '%', v: 70, step: 5, max: 100, group: 'buffet' },
-    spend:   { label: 'Average spend per buffet visit', pre: '$', v: 20, step: 1, group: 'buffet' },
-    current: { label: 'Current catering bookings a month', pre: '', v: 10, step: 1, group: 'catering' },
-    order:   { label: 'Average catering order', pre: '$', v: 1500, step: 50, group: 'catering' },
-    convLo:  { label: 'Catering conversion rate: low', post: '%', v: 0.5, step: 0.05, max: 100, group: 'catering' },
-    convHi:  { label: 'Catering conversion rate: high', post: '%', v: 1, step: 0.05, max: 100, group: 'catering' },
-    list:    { label: 'Existing customer phone numbers', pre: '', v: 4000, step: 100, group: 'database' },
-    cpb:     { label: 'Cost per catering booking (optional)', pre: '$', v: 20, step: 1, group: 'database' },
+    guests:  { label: 'Monthly customers', pre: '', v: 1000, step: 50, group: 'customers' },
+    capture: { label: 'Customers who give you contact info', post: '%', v: 70, step: 5, max: 100, group: 'customers' },
+    spend:   { label: 'Average amount they spend now', pre: '$', v: 20, step: 1, group: 'customers' },
+    current: { label: 'Current bookings for your premium offer, a month', pre: '', v: 10, step: 1, group: 'offer' },
+    order:   { label: 'Average value of that offer', pre: '$', v: 1500, step: 50, group: 'offer' },
+    convLo:  { label: 'Conversion rate into it: low', post: '%', v: 0.5, step: 0.05, max: 100, group: 'offer' },
+    convHi:  { label: 'Conversion rate into it: high', post: '%', v: 1, step: 0.05, max: 100, group: 'offer' },
+    list:    { label: 'Existing customer contacts', pre: '', v: 4000, step: 100, group: 'database' },
+    cpb:     { label: 'Cost per booking (optional)', pre: '$', v: 20, step: 1, group: 'database' },
   };
-  const GROUPS = { buffet: 'Buffet', catering: 'Catering', database: 'Existing database & cost' };
+  const GROUPS = { customers: 'Customers', offer: 'Your premium offer', database: 'Existing database & cost' };
 
   // the questions, in order
   const QS = [
-    { ids: ['guests'], title: 'How many guests eat at the buffet in a month?', help: 'Every person through the door. About 35 a day is roughly 1,000 a month.' },
-    { ids: ['capture'], title: 'What share of guests give their phone number?', help: 'For a free drink, a birthday deal or a QR code on the table. 700 out of 1,000 guests is 70%.' },
-    { ids: ['spend'], title: 'What does a guest spend per buffet visit?', help: 'The buffet price plus drinks, per person.' },
-    { ids: ['current'], title: 'How many catering bookings do you get now, a month?', help: 'What already comes in on its own. The new bookings below are in addition to these.' },
-    { ids: ['order'], title: 'What’s the average catering order worth?', help: 'Office lunches, birthdays, church events, family parties.' },
-    { ids: ['convLo', 'convHi'], range: true, title: 'What share of contacts might book catering?', help: 'An estimate, not a known number: give a low and a high assumption. 0.5% is 1 in 200; 1% is 1 in 100.' },
-    { ids: ['list'], title: 'How many customer phone numbers do you already have?', help: 'Past guests, online orders, reservations, loyalty sign-ups. Leave at 0 if none.' },
-    { ids: ['cpb'], title: 'Optional: what might it cost to generate one catering booking?', help: 'Texts, follow-ups and offers, per booking. Leave at 0 to skip.' },
+    { ids: ['guests'], title: 'How many customers do you get in a month?', help: 'Everyone who walks in, calls or visits. About 35 a day is roughly 1,000 a month.' },
+    { ids: ['capture'], title: 'What share of customers give you contact info?', help: 'For a discount, a loyalty sign-up or a QR code. 700 out of 1,000 customers is 70%.' },
+    { ids: ['spend'], title: 'What does a customer spend on average, right now?', help: 'Their typical purchase or visit, per person.' },
+    { ids: ['current'], title: 'How many of your premium offer do you sell now, a month?', help: 'What already comes in on its own. The new bookings below are in addition to these.' },
+    { ids: ['order'], title: 'What’s your premium offer worth, on average?', help: 'Your highest-value product or service: a package, a membership, a big job.' },
+    { ids: ['convLo', 'convHi'], range: true, title: 'What share of contacts might buy it?', help: 'An estimate, not a known number: give a low and a high assumption. 0.5% is 1 in 200; 1% is 1 in 100.' },
+    { ids: ['list'], title: 'How many customer contacts do you already have?', help: 'Past customers, online orders, appointments, loyalty sign-ups. Leave at 0 if none.' },
+    { ids: ['cpb'], title: 'Optional: what might it cost to generate one booking?', help: 'Texts, follow-ups and offers, per booking. Leave at 0 to skip.' },
   ];
 
   const usd = (n) => (n < 0 ? '−$' : '$') + (Math.abs(n) < 10 && n % 1 ? Math.abs(n).toFixed(2) : Math.round(Math.abs(n)).toLocaleString('en-US'));
@@ -65,13 +66,13 @@
         </div>
       </div>
       <div class="calc-run" hidden>
-        <div class="calc-chips"><span>Buffet customers → catering customers</span><button type="button" class="q-back" data-a="restart">Answer the questions again</button></div>
+        <div class="calc-chips"><span>Customers → your premium offer</span><button type="button" class="q-back" data-a="restart">Answer the questions again</button></div>
         <div class="calc">
           <form class="glass calc-in sheet" novalidate onsubmit="return false">
             ${Object.entries(GROUPS).map(([g, name]) => `<fieldset><legend>${name}</legend>${Object.entries(F).filter(([, f]) => f.group === g).map(([id, f]) => `<label class="sheet-row" for="${uid}${id}"><span>${f.label}</span>${inputHTML(id, uid)}</label>`).join('')}</fieldset>`).join('')}
           </form>
           <div class="glass calc-out" id="${uid}res" aria-live="polite">
-            <p class="miss-k">Potential monthly catering revenue</p>
+            <p class="miss-k">Potential monthly revenue</p>
             <p class="miss range"><span data-o="miss"></span><small>/mo</small></p>
             <p class="miss-year" data-o="year"></p>
             <div class="pnl">
@@ -89,9 +90,9 @@
               <p class="db-line" data-o="dbline"></p>
             </div>
             <div class="ladder two" aria-label="What one guest could become">
-              <div><span>One buffet visit</span><b data-o="l1"></b><em>eats, pays, leaves</em></div>
+              <div><span>One visit</span><b data-o="l1"></b><em>buys, pays, leaves</em></div>
               <i aria-hidden="true">→</i>
-              <div class="hot"><span>A catering relationship</span><b data-o="l2"></b><em data-o="lx"></em></div>
+              <div class="hot"><span>A premium customer</span><b data-o="l2"></b><em data-o="lx"></em></div>
             </div>
             <div class="sens">
               <p class="k">At other conversion assumptions</p>
@@ -100,10 +101,10 @@
             <p class="calc-line" data-o="line"></p>
             <p class="acq" data-o="acq"></p>
             <div class="calc-acts">
-              <a class="btn btn-primary" data-o="mail" href="mailto:hello@naberstudio.com">Get this for my restaurant</a>
+              <a class="btn btn-primary" data-o="mail" href="mailto:hello@naberstudio.com">Get this for my business</a>
               <button class="btn btn-ghost" type="button" data-a="copy">Copy link to these numbers</button>
             </div>
-            <p class="calc-note">Estimates are based on the assumptions entered and are not a guarantee of results. Revenue only: food, labor and other operating costs are not subtracted.</p>
+            <p class="calc-note">Estimates are based on the assumptions entered and are not a guarantee of results. Revenue only: cost of goods, labor and other operating costs are not subtracted.</p>
           </div>
         </div>
         <a class="calc-peek" href="#${uid}res" data-o="peek" hidden><span>Potential</span><b data-o="peek-v"></b><i>See the math ↓</i></a>
@@ -153,7 +154,7 @@
       const [cLo, cHi] = [Math.min(v.convLo, v.convHi), Math.max(v.convLo, v.convHi)];
       const nums = v.guests * (v.capture / 100);                      // new phone numbers a month
       const at = (conv) => {
-        const books = nums * (conv / 100);                            // additional catering bookings a month
+        const books = nums * (conv / 100);                            // additional bookings for the premium offer, a month
         const dbBooks = v.list * (conv / 100);                        // potential bookings from the existing database
         return { books, rev: books * v.order, dbBooks, dbRev: dbBooks * v.order };
       };
@@ -165,21 +166,21 @@
       out('conv').textContent = cLo === cHi ? pct(cLo) : `${pct(cLo)} – ${pct(cHi)}`;
       out('books').textContent = rangeN(lo.books, hi.books);
       out('uplift').textContent = v.current > 0
-        ? `In addition to the ${num(v.current)} catering bookings a month you get now (+${num((lo.books / v.current) * 100)}% to +${num((hi.books / v.current) * 100)}%).`
-        : 'In addition to any catering bookings you get now.';
+        ? `In addition to the ${num(v.current)} bookings a month you get now (+${num((lo.books / v.current) * 100)}% to +${num((hi.books / v.current) * 100)}%).`
+        : 'In addition to any bookings you get now.';
       out('db').textContent = v.list > 0 ? range(lo.dbRev, hi.dbRev) : '—';
       out('dbline').innerHTML = v.list > 0
-        ? `If ${cLo === cHi ? pct(cLo) : `${pct(cLo)}–${pct(cHi)}`} of your ${num(v.list)} existing customers booked a catering order, that’s <b>${rangeN(lo.dbBooks, hi.dbBooks)}</b> bookings and the resulting revenue would be approximately <b>${range(lo.dbRev, hi.dbRev)}</b>. Your restaurant may already have a valuable catering audience hiding in its customer database. This is separate from the monthly number above.`
-        : 'Add the number of customer phone numbers you already have to see this opportunity.';
+        ? `If ${cLo === cHi ? pct(cLo) : `${pct(cLo)}–${pct(cHi)}`} of your ${num(v.list)} existing customers bought your premium offer, that’s <b>${rangeN(lo.dbBooks, hi.dbBooks)}</b> bookings and the resulting revenue would be approximately <b>${range(lo.dbRev, hi.dbRev)}</b>. You may already have a valuable audience hiding in your customer database. This is separate from the monthly number above.`
+        : 'Add the number of customer contacts you already have to see this opportunity.';
       out('l1').textContent = usd(v.spend);
       out('l2').textContent = usd(v.order) + '+';
-      out('lx').textContent = 'One $' + num(v.spend) + ' buffet visit can become a ' + usd(v.order) + '+ catering relationship';
+      out('lx').textContent = 'One $' + num(v.spend) + ' visit can become a ' + usd(v.order) + '+ customer';
       // conversion is an assumption, so show a spread; rows inside the chosen range are highlighted
       out('sens').innerHTML = [...new Set([0.25, 0.5, 0.75, 1, 2, cLo, cHi])].sort((a, b) => a - b).map((c) => {
         const r = at(c);
         return `<tr class="${c >= cLo && c <= cHi ? 'in' : ''}"><td>${pct(c)}</td><td>${num(r.books)}</td><td>${usd(r.rev)}</td><td>${v.list > 0 ? usd(r.dbRev) : '—'}</td></tr>`;
       }).join('');
-      out('line').innerHTML = `Turn existing buffet customers into catering customers. <b>${num(v.guests)}</b> guests a month × <b>${pct(v.capture)}</b> who give a number = <b>${num(nums)}</b> new contacts a month. At <b>${cLo === cHi ? pct(cLo) : `${pct(cLo)}–${pct(cHi)}`}</b> conversion, that’s <b>${rangeN(lo.books, hi.books)}</b> additional bookings × <b>${usd(v.order)}</b> = <b>${range(lo.rev, hi.rev)}</b> a month.`;
+      out('line').innerHTML = `Turn existing customers into premium customers. <b>${num(v.guests)}</b> customers a month × <b>${pct(v.capture)}</b> who give contact info = <b>${num(nums)}</b> new contacts a month. At <b>${cLo === cHi ? pct(cLo) : `${pct(cLo)}–${pct(cHi)}`}</b> conversion, that’s <b>${rangeN(lo.books, hi.books)}</b> additional bookings × <b>${usd(v.order)}</b> = <b>${range(lo.rev, hi.rev)}</b> a month.`;
       out('acq').innerHTML = v.cpb > 0
         ? `Estimated cost to generate those bookings: <b>${range(lo.books * v.cpb, hi.books * v.cpb)}</b> a month${v.list > 0 ? `, and <b>${range(lo.dbBooks * v.cpb, hi.dbBooks * v.cpb)}</b> one-time for the existing database` : ''} (at ${usd(v.cpb)} per booking).`
         : '';
@@ -188,8 +189,8 @@
       box.dataset.link = `${location.origin}/calculator/?${qs}`;
       if (onPage && !$('.calc-run').hidden) history.replaceState(null, '', `?${qs}`);
       const lines = Object.entries(F).map(([id, f]) => `- ${f.label}: ${f.pre === '$' ? usd(v[id]) : v[id] + (f.post || '')}`).join('\n');
-      const body = `Hi Faris,\n\nI ran my numbers in your catering calculator:\n\n${lines}\n\nPotential monthly catering revenue: ${range(lo.rev, hi.rev)}\nPotential revenue from existing customer database (one-time): ${v.list > 0 ? range(lo.dbRev, hi.dbRev) : 'n/a'}\n\n${box.dataset.link}\n\nMy restaurant: `;
-      out('mail').href = `mailto:hello@naberstudio.com?subject=${encodeURIComponent('My catering numbers')}&body=${encodeURIComponent(body)}`;
+      const body = `Hi Faris,\n\nI ran my numbers in your revenue calculator:\n\n${lines}\n\nPotential monthly revenue: ${range(lo.rev, hi.rev)}\nPotential revenue from existing customer database (one-time): ${v.list > 0 ? range(lo.dbRev, hi.dbRev) : 'n/a'}\n\n${box.dataset.link}\n\nMy business: `;
+      out('mail').href = `mailto:hello@naberstudio.com?subject=${encodeURIComponent('My revenue numbers')}&body=${encodeURIComponent(body)}`;
     }
 
     sheet.addEventListener('input', (e) => {
