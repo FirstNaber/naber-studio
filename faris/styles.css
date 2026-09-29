@@ -38,7 +38,7 @@ main,.foot{position:relative;z-index:1}
 .ln{display:block;overflow:hidden;padding-top:.04em}
 .ln>span{display:inline-block;transform:translateY(105%);transition:transform 1.1s cubic-bezier(.2,.85,.2,1)}
 .loaded .ln>span{transform:none}
-.loaded .ln:nth-child(2)>span{transition-delay:.1s}.loaded .ln:nth-child(3)>span{transition-delay:.2s}
+.loaded .ln:nth-child(2)>span{transition-delay:.1s}.loaded .ln:nth-child(3)>span{transition-delay:.2s}.loaded .ln:nth-child(4)>span{transition-delay:.3s}
 .hero-meta{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:40px;opacity:0;transition:opacity 1s .7s}
 .loaded .hero-meta{opacity:1}
 .hero-sub{font-size:clamp(16px,1.7vw,22px);line-height:1.5}
