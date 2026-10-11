@@ -570,3 +570,4 @@ main,.foot{position:relative;z-index:1}
   .caps h3{font-size:20px;margin:10px 0 6px}
   .caps p{font-size:11px;line-height:1.5}
 }
+.lg-mosaic{height:clamp(22px,2.2vw,30px)}
