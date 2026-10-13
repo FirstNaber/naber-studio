@@ -1,4 +1,4 @@
-/* Naber Studio homepage add-ons, layered on the portfolio's own styles (faris/styles.css):
+/* Naber Works homepage add-ons, layered on the portfolio's own styles (faris/styles.css):
    the catering calculator, the website builder and pricing. Class names are kept clear of the portfolio's. */
 :root{--ease:cubic-bezier(.2,.8,.2,1)}
 .skip{position:absolute;left:-999px;top:8px;z-index:99;background:var(--o);color:#000;padding:10px 14px}

@@ -1,4 +1,4 @@
-/* Naber Studio — "your website in 10 seconds".
+/* Naber Works — "your website in 10 seconds".
    Builds a live website concept for any business name, in the browser. Nothing is sent anywhere.
    Design = one of 8 hand-made systems (type pairing, palette, layout, art), chosen by business type
    and varied by the name. Content = written per business type. */

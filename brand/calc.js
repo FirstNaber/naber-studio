@@ -1,4 +1,4 @@
-/* Naber Studio revenue opportunity calculator — ESTIMATED ADDITIONAL REVENUE only. Works for any local
+/* Naber Works revenue opportunity calculator — ESTIMATED ADDITIONAL REVENUE only. Works for any local
    business: replace "customers" and "premium offer" with whatever fits (catering, memberships, service
    plans, big-ticket jobs, ...). Two opportunities, kept separate:
      1. Monthly: customers × contact-capture rate = new contacts a month; × conversion (low/high) = additional

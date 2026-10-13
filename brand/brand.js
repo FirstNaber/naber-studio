@@ -1,4 +1,4 @@
-/* Naber Studio shared motion: starfield, fluid orb, LET'S TALK window text, menu, sliding headlines, reveal.
+/* Naber Works shared motion: starfield, fluid orb, LET'S TALK window text, menu, sliding headlines, reveal.
    Same engine as the founder page (/faris/). Every part is optional: it only runs if its element is on the page. */
 (() => {
 const root = document.documentElement;
