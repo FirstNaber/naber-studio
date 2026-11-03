@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#17A3AE"/>
+      <stop offset=".55" stop-color="#0E7C86"/>
+      <stop offset="1" stop-color="#075A63"/>
+    </linearGradient>
+    <radialGradient id="bgGlow" cx=".5" cy=".84" r=".55">
+      <stop offset="0" stop-color="#FFF4D6" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#FFF4D6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF6DA" stop-opacity=".85"/>
+      <stop offset=".7" stop-color="#FFF6DA" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#FFF6DA" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="spot" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFF6DA" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#FFF6DA" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hullTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#D7ECEF"/>
+    </linearGradient>
+    <linearGradient id="hullBot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9FCDD3"/>
+      <stop offset="1" stop-color="#5E9EA7"/>
+    </linearGradient>
+    <radialGradient id="dome" cx=".38" cy=".28" r=".85">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".45" stop-color="#CFEFF2"/>
+      <stop offset="1" stop-color="#7CC3CB"/>
+    </radialGradient>
+    <radialGradient id="lamp" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFD866" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#FFD866" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="shadow" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="18"/></filter>
+    <clipPath id="tile"><rect width="1024" height="1024" rx="228"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#tile)">
+    <rect width="1024" height="1024" fill="url(#bg)"/>
+    <rect width="1024" height="1024" fill="url(#bgGlow)"/>
+
+    <!-- The street grid below, in perspective -->
+    <g stroke="#FFFFFF" stroke-opacity=".11" stroke-width="3" fill="none">
+      <path d="M0 760H1024M0 850H1024M0 958H1024"/>
+      <path d="M512 640L-260 1024M512 640L90 1024M512 640L512 1024M512 640L934 1024M512 640L1284 1024"/>
+    </g>
+
+    <!-- Beam and the lit spot it finds -->
+    <polygon points="440,548 584,548 772,872 252,872" fill="url(#beam)" filter="url(#soft)"/>
+    <ellipse cx="512" cy="868" rx="262" ry="50" fill="url(#spot)"/>
+
+    <!-- The lead: a pin in the light -->
+    <ellipse cx="512" cy="862" rx="46" ry="11" fill="#04454C" fill-opacity=".35"/>
+    <path d="M512 858C488 818 452 790 452 748A60 60 0 1 1 572 748C572 790 536 818 512 858Z" fill="#FFFFFF"/>
+    <circle cx="512" cy="748" r="23" fill="#0E7C86"/>
+
+    <!-- Saucer -->
+    <ellipse cx="512" cy="548" rx="292" ry="54" fill="#03363C" fill-opacity=".45" filter="url(#shadow)"/>
+    <ellipse cx="512" cy="498" rx="322" ry="98" fill="url(#hullBot)"/>
+    <ellipse cx="512" cy="466" rx="322" ry="86" fill="url(#hullTop)"/>
+    <ellipse cx="512" cy="466" rx="312" ry="78" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="4"/>
+
+    <g>
+      <circle cx="280" cy="530" r="34" fill="url(#lamp)"/><circle cx="280" cy="530" r="14" fill="#FFC93C"/>
+      <circle cx="390" cy="558" r="34" fill="url(#lamp)"/><circle cx="390" cy="558" r="14" fill="#FFC93C"/>
+      <circle cx="512" cy="568" r="34" fill="url(#lamp)"/><circle cx="512" cy="568" r="14" fill="#FFC93C"/>
+      <circle cx="634" cy="558" r="34" fill="url(#lamp)"/><circle cx="634" cy="558" r="14" fill="#FFC93C"/>
+      <circle cx="744" cy="530" r="34" fill="url(#lamp)"/><circle cx="744" cy="530" r="14" fill="#FFC93C"/>
+    </g>
+
+    <ellipse cx="512" cy="430" rx="156" ry="36" fill="#BFE2E6"/>
+    <path d="M356 430A156 142 0 0 1 668 430Z" fill="url(#dome)"/>
+    <path d="M356 430A156 142 0 0 1 668 430" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="4"/>
+    <ellipse cx="452" cy="352" rx="44" ry="19" fill="#FFFFFF" fill-opacity=".85" transform="rotate(-32 452 352)"/>
+  </g>
+</svg>
